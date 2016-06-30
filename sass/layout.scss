@@ -1,0 +1,422 @@
+@import "utilities/variables";
+
+$modal-width: 400px;
+$modal-height: 250px;
+
+.header{
+  background-color: $light-border-color;
+  z-index: 1;
+}
+
+.header-content{
+  @extend .border-box;
+  height: calc(#{$header-height} - 1px);  //space for divider bottom
+  position: relative;
+}
+
+#app-title{
+  @extend .center-block-elem;
+  width: 100%;
+  height: 100%;
+  color: gray;
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  position: relative;
+  cursor: default;
+}
+
+.divider{
+  @extend .border-box;
+  border-bottom: solid 1px $border-color;
+}
+
+.inherit-height{
+  height: inherit;
+}
+
+.side-container{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  position: relative;
+
+  & > .tool{
+    @extend .center-inline-elem;
+    height: $header-height;
+    color: $dark-border-color;
+    font-size: 20px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+
+    &:hover{
+      color: gray;
+    }
+  }
+}
+
+.row-1{
+  flex-shrink: 1;
+}
+
+.row-2{
+  flex-shrink: 2;
+}
+
+.row-3{
+  flex-shrink: 3;
+}
+
+.button-container{
+  @extend .border-box;
+
+  & > *{
+    margin-left: 10px;
+  }
+}
+
+.arrow-down-icon{
+  &:before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid $dark-border-color;
+    position: absolute;
+    left: calc(50% - 5px);
+    top: calc(50% - (5px / 2));
+  }
+
+  &:hover:before{
+    border-top-color: $theme-color;
+  }
+}
+
+#project-name{
+  @extend .center-inline-elem;
+  @extend .border-box;
+  height: 100%;
+  padding: 10px;
+  color: gray;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: default;
+}
+
+.drop-tool{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: tomato;
+}
+
+.bubble-dropdown{
+  @include shadow-box(10px, 3px, lighten(black, 90%));
+  @extend .border-box;
+  min-width: 150px;
+  min-height: $input-height;
+  min-width: 170px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: white;
+  border: solid .7px $border-color;
+  border-radius: $global-border-radius;
+  position: absolute;
+  left: -18px;
+  top: calc(100%);
+  cursor: default;
+  outline: none;
+  white-space: wrap;
+
+  opacity: 0;
+  transform: translateY(-5px);
+  pointer-events: none;
+
+  -webkit-transition: opacity .1s ease-in, transform .1s ease-in;
+     -moz-transition: opacity .1s ease-in, transform .1s ease-in;
+       -o-transition: opacity .1s ease-in, transform .1s ease-in;
+          transition: opacity .1s ease-in, transform .1s ease-in;
+
+  &.show{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  &:before{
+    @include shadow-box(2px, 0px, lighten(black, 70%));
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+    box-shadow: 0px 0px 0px -7px lighten(black, 70%);
+    position: absolute;
+    top: -8px;
+    left: 8px;
+  }
+
+  &.right{
+    left: auto;
+    right: -18px;
+
+    &:before{
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid white;
+      position: absolute;
+      top: -8px;
+      left: auto;
+      right: 8px;
+    }
+  }
+
+  & > .username-option{
+    @extend .center-block-elem;
+    width: 100%;
+    min-height: $input-height;
+    color: gray;
+    font-family: $default-font;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  & > .bubble-option{
+    @extend .center-block-elem;
+    @extend .border-box;
+    width: 100%;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: $custom-black;
+    font-family: $default-font;
+    font-size: 12px;
+    font-weight: 500;
+    position: relative;
+    cursor: pointer;
+
+    & > span, & > label{
+      width: 100%;
+      height: 100%;
+      white-space: normal;
+      word-break: break-all;
+      vertical-align: text-bottom;
+      cursor: inherit;
+    }
+
+    & > #user-name{
+      color: gray;
+      font-weight: 500;
+      text-align: center;
+      cursor: inherit;
+    }
+
+    &:nth-of-type(1){
+      cursor: default;
+    }
+
+    &:not(:nth-of-type(1)):hover{
+      color: white;
+      background-color: $theme-color;
+    }
+
+    &:not(:nth-of-type(1)):active{
+      background-color: $dark-border-color;
+    }
+  }
+}
+
+.option-divider{
+  width: 100%;
+  height: calc(#{$input-height} / 3);
+  position: relative;
+  cursor: default;
+
+  &:before{
+    @extend .border-box;
+    content: "";
+    width: 100%;
+    height: 1px;
+    border-top: solid 1px lighten($border-color, 8%);
+    position: absolute;
+    left: 0;
+    top: calc(50% - (1px / 2));
+  }
+}
+
+.title-wrapper{
+  margin-right: 20px;
+}
+
+.nav-container{
+  @extend .center-block-elem;
+  height: 100%;
+  margin-left: 20px;
+
+  & > .nav-button{
+    color: darkgray;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover{
+      color: gray;
+    }
+
+    &:active{
+      color: $dark-border-color;
+    }
+
+    &.select{
+      color: $theme-color;
+    }
+  }
+}
+
+.border-left{
+  @extend .border-box;
+  border-left: solid 3px $theme-color;
+  padding-left: 10px;
+}
+
+.modal-wrapper{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  background-color: transparentize(black, .5);
+
+  & > .modal{
+    width: $modal-width;
+    height: $modal-height;
+    background-color: white;
+    border-radius: $global-border-radius;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: fixed;
+    top: calc(50% - (#{$modal-height} / 2));
+    left: calc(50% - (#{$modal-width} / 2));
+
+    & > .modal-header{
+      @extend .center-block-elem;
+      @extend .border-box;
+      width: 100%;
+      height: $header-height;
+      padding: 10px;
+      background-color: $theme-color;
+      flex-shrink: 0;
+
+      & > i{
+        color: white;
+        padding-right: 10px;
+      }
+
+      & > .modal-title{
+        width: 100%;
+        color: white;
+      }
+    }
+
+    & .button{
+      color: $dark-border-color;
+      border-color: $dark-border-color;
+
+      &:hover{
+        color: gray;
+        background-color: white;
+        border-color: gray;
+      }
+
+      &:active{
+        color: white;
+        background-color: $dark-border-color;
+        border-color: $dark-border-color;
+      }
+
+      &:not(.delete){
+        min-width: 100px;
+        color: white;
+        background-color: $theme-color;
+        border-color: $theme-color;
+
+        &:hover{
+          color: white;
+          background-color: $dark-theme-color;
+          border-color: $dark-theme-color;
+        }
+
+        &:active{
+          color: white;
+          background-color: $dark-border-color;
+          border-color: $dark-border-color;
+        }
+      }
+    }
+
+    &.confirm{
+      & > .modal-header{
+        background-color: tomato;
+      }
+
+      & .button:not(.delete){
+        background-color: tomato;
+        border-color: tomato;
+
+        &:hover{
+          background-color: lighten(tomato, 5%);
+          border-color: lighten(tomato, 5%)
+        }
+
+        &:active{
+          background-color: darken(tomato, 5%);
+          border-color: darken(tomato, 5%)
+        }
+      }
+    }
+
+    & > .modal-content{
+      @extend .center-block-elem;
+      @extend .border-box;
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      color: gray;
+      background-color: white;
+      position: relative;
+
+      & > i{
+        @extend .center-block-elem;
+        height: 100%;
+        font-size: 35px;
+        color: tomato;
+      }
+
+      & > .modal-message{
+        @extend .border-box;
+        padding: 10px;
+        font-size: 15px;
+      }
+    }
+
+    & > .modal-buttons{
+      @extend .border-box;
+      width: 100%;
+      height: $header-height;
+      padding-right: 10px;
+      flex-shrink: 0;
+    }
+  }
+}

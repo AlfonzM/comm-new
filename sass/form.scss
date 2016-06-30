@@ -1,0 +1,586 @@
+@import "utilities/variables";
+
+html, body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  font-family: $default-font;
+  background-color: white;
+}
+
+body.modal-open{
+  overflow: hidden;
+
+  & > *:not(.modal-wrapper){
+    pointer-events: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+           user-select: none;
+  }
+}
+
+.content-wrapper{
+  width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.dark-section{
+  background-color: lighten($light-border-color, 3%);
+}
+
+.col-wrapper{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.row-wrapper{
+  width: 100%;
+  display: flex;
+  flex-flow: wrap;
+  position: relative;
+}
+
+.row-no-wrapper{
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.bottom-section{
+  & > .col-wrapper{
+    padding-bottom: 10px;
+  }
+
+  & > .col-wrapper:not(:nth-of-type(1)){
+    margin-left: 10px;
+  }
+}
+
+.body-content{
+  width: 100%;
+  min-height: calc(100% - (#{$header-height} * 2));
+  position: relative;
+
+  & > .page{
+    width: 100%;
+    position: relative;
+    display: none;
+
+    &.select{
+      display: block;
+    }
+  }
+}
+
+.list-container{
+  @extend .border-box;
+  width: 100%;
+  margin-top: $header-height;
+  margin-bottom: $header-height;
+  border: solid 1px $border-color;
+  border-radius: $global-border-radius;
+  position: relative;
+
+  & > .list-header{
+    @extend .border-box;
+    width: 100%;
+    height: 40px;
+    color: $custom-black;;
+    background-color: $light-border-color;
+    font-size: 14px;
+    border-bottom: solid 1px $border-color;
+
+    & > div{
+      & > span{
+        @extend .center-inline-elem;
+        @extend .border-box;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px;
+        white-space: nowrap;
+      }
+
+      & > .list-tools{
+        flex-flow: row-reverse;
+
+        & > .list-button{
+          @extend .center-inline-elem;
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+          color: $dark-border-color;
+          cursor: pointer;
+
+          &:hover{
+            color: $theme-color;
+          }
+
+          &:active{
+            color: gray;
+          }
+        }
+      }
+    }
+  }
+
+  & > .list-content{
+    min-height: calc(#{$list-height} * 6);
+    position: relative;
+    background-color: white;
+
+    &:empty:before{
+      @extend .center-block-elem;
+      content: "リストは空です";
+      width: 100%;
+      height: 100%;
+      color: $border-color;
+      font-size: 15px;
+      font-weight: 400;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    & > .list-elem{
+      width: 100%;
+      height: $list-height;
+      font-size: 14px;
+      display: flex;
+      position: relative;
+      cursor: pointer;
+
+      -webkit-animation: FADE-SLIDE-IN .2s linear;
+              animation: FADE-SLIDE-IN .2s linear;
+
+      &:not(:nth-of-type(1)){
+        border-top: solid 1px $light-border-color-2;
+      }
+
+      & > .icon{
+        @extend .center-block-elem;
+        min-width: $list-height;
+        height: $list-height;
+        color: gray;
+        font-size: 18px;
+        position: relative;
+      }
+
+      & > .list-tool{
+        color: $dark-border-color;
+
+        &:hover{
+          color: $theme-color;
+        }
+
+        &:active{
+          color: gray;
+        }
+      }
+
+      &.list-element-focus{
+        background-color: $light-border-color-2;
+
+        & .list-title{
+          text-decoration: underline;
+        }
+
+        & .list-sub-detail{
+          color: $custom-black;
+        }
+
+        & .trigger-update{
+          color: $custom-black;
+        }
+      }
+    }
+  }
+}
+
+.detail-wrapper{
+  @extend .border-box;
+  max-height: 100%;
+  width: 50%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  & > div{
+    @extend .center-block-elem;
+    height: 100%;
+
+    & > span{
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.list-title{
+  color: $theme-color;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.trigger-update{
+  @extend .center-block-elem;
+  width: 50%;
+  height: 100%;
+  color: gray;
+  font-size: 12px;
+  font-weight: 400;
+
+  & > span{
+    width: 100%;
+  }
+}
+
+.list-sub-detail{
+  color: gray;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.priority-number{
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+#conversation-list{
+  max-height: calc(#{$list-height} * 6);
+  overflow-y: scroll;
+}
+
+.header-wrapper{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.conversation-detail-section{
+  height: 50px;
+  display: block;
+  position: relative;
+  font-size: 0;
+
+  -webkit-animation: FADE-SLIDE-IN .2s linear;
+          animation: FADE-SLIDE-IN .2s linear;
+
+  & > .side-bar{
+    float: right;
+    position: relative;
+    display: flex;
+
+    & > .side-bar-wrapper{
+      @extend .center-block-elem;
+
+      &:not(:nth-of-type(1)){
+        margin-left: 5px;
+      }
+    }
+  }
+
+  & > *{
+    @extend .center-inline-elem;
+    font-size: 20px;
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+  }
+
+  & > .icon{
+    color: $dark-border-color;
+    cursor: default;
+  }
+
+  & > .titles{
+    margin-left: 5px;
+    color: $theme-color;
+    cursor: pointer;
+
+
+    & > span{
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:nth-of-type(1){
+      color: $custom-black;
+
+      & > span:hover{
+        color: $theme-color;
+        text-decoration: underline;
+      }
+    }
+
+    &:not(:nth-of-type(1)){
+      font-weight: 800;
+      cursor: default;
+
+      &:before{
+        content: "/";
+        margin-right: 5px;
+        color: gray;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+.toggle-hide{
+  @extend .border-box;
+  padding: 5px;
+
+  &:hover{
+    color: $theme-color;
+  }
+
+  &:active{
+    color: $dark-border-color;
+  }
+}
+
+.toggle-hide-container{
+  color: $theme-color;
+  font-size: 14px;
+  font-weight: 400;
+
+  & > span{
+    cursor: pointer;
+  }
+
+  & > .toggle-hide-content{
+    margin-top: 5px;
+    padding-top: 5px;
+    color: $custom-black;
+    border-top: solid 1px $border-color;
+    display: none;
+
+    -webkit-animation: FADE-SLIDE-IN .2s linear;
+            animation: FADE-SLIDE-IN .2s linear;
+  }
+
+  & > .hide-icon{
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+
+    &:before{
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid $theme-color;
+      position: absolute;
+      left: calc(50% - 5px);
+      top: calc(50% - (5px / 2));
+
+      transform: rotate(-90deg);
+
+      -webkit-transition: transform .2s linear;
+         -moz-transition: transform .2s linear;
+           -o-transition: transform .2s linear;
+              transition: transform .2s linear;
+    }
+  }
+
+  &.show{
+    color: gray;
+
+    & > .toggle-hide-content{
+      display: block;
+    }
+
+    & > .hide-icon:before{
+      transform: rotate(0);
+      border-top-color: gray;
+    }
+  }
+}
+
+#dialogue-container{
+  & > .dialogue{
+    width: 100%;
+    font-size: 14px;
+    position: relative;
+    display: none;
+
+    -webkit-animation: FADE-SLIDE-IN .2s linear;
+            animation: FADE-SLIDE-IN .2s linear;
+
+    &.show{
+      display: block;
+    }
+  }
+}
+
+.breadcrumb-container{
+  margin-top: 10px;
+  padding-bottom: 10px;
+  white-space: normal;
+
+  & > .breadcrumb{
+    @extend .border-box;
+    color: gray;
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    position: relative;
+
+    & > span{
+      // @extend .center-inline-elem;
+      margin-left: 5px;
+      padding: 5px;
+      border-radius: $global-border-radius;
+      cursor: pointer;
+
+      &:empty:before{
+        content: "None"
+      }
+
+      &:hover{
+        text-decoration: underline;
+        color: $custom-black;
+      }
+    }
+
+    &:first-of-type{
+      & > span{
+        margin: 0;
+        padding-left: 0;
+      }
+    }
+
+    &:not(:nth-of-type(1)):before{
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid $dark-border-color;
+      position: absolute;
+      top: calc(50% - 5px);
+      left: 0;
+
+      // margin-left: 5px;
+    }
+
+    &:last-of-type{
+      & > span{
+        color: $theme-color;
+        font-weight: 700;
+        cursor: default;
+
+        &:hover{
+          background-color: transparent;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.dialogue-form{
+  padding-top: 10px;
+}
+
+#dialogue-list{
+  @extend .border-box;
+  margin-top: 20px;
+}
+
+.dialogue-box{
+  @extend .border-box;
+  // @include shadow-box(1px, 1px, lighten(black, 90%));
+  margin-bottom: $input-height / 2;
+  padding-top: 10px;
+  border-radius: $global-border-radius;
+  border: solid 1px $border-color;
+  position: relative;
+
+  -webkit-animation: FADE-SLIDE-IN .2s linear;
+          animation: FADE-SLIDE-IN .2s linear;
+
+  & > .col-wrapper, & > .row-wrapper, & > .row-no-wrapper{
+    @extend .border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.response-box{
+  width: 100%;
+  min-height: $input-height;
+  position: relative;
+
+  &:empty:before{
+    @extend .center-block-elem;
+    content: "リストは空です";
+    width: 99%;
+    height: $input-height;
+    margin: 0 auto;
+    color: $dark-border-color;
+    background-color: $light-border-color-2;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  & > li{
+    @extend .border-box;
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+    position: relative;
+    background-color: white;
+    border-left: solid 3px $dark-border-color;
+
+    -webkit-animation: FADE-SLIDE-IN .2s linear;
+            animation: FADE-SLIDE-IN .2s linear;
+
+    &:nth-of-type(odd){
+      background-color: $light-border-color-2;
+      border-color: $border-color;
+    }
+
+    &:hover{
+      background-color: $light-border-color;
+      border-color: gray;
+    }
+  }
+}
+
+// Animations
+@-webkit-keyframes FADE-SLIDE-IN {
+    from {
+      opacity : 0;
+      transform: translateX(-5px);
+    }
+    to   {
+      opacity : 1;
+      transform: translateX(0);
+    }
+}
+
+@keyframes FADE-SLIDE-IN {
+    from {
+      opacity : 0;
+      transform: translateX(-5px);
+    }
+    to   {
+      opacity : 1;
+      transform: translateX(0);
+    }
+}

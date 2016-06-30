@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Conversation</title>
+<!-- <link rel="shortcut icon" type="image/png" href="css/images/tiny-favicon.png"/> -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<script src="js/structure.js"></script>
+<script src="js/interaction.js"></script>
+<script src="js/conversation.js"></script>
+<script src="js/data.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/layout.css">
+<link rel="stylesheet" type="text/css" href="css/template.css">
+<link rel="stylesheet" type="text/css" href="css/form.css">
+</head>
+<body lang="en">
+  <div class="header divider col-wrapper">
+    <div class="header-content content-wrapper">
+      <div class="row-no-wrapper inherit-height">
+        <div class="title-wrapper inherit-height">
+          <span id="app-title">ペパーの会話</span>
+        </div>
+        <!-- <div class="nav-container">
+          <label for="settings-page" class="nav-button">設定ページ</label>
+        </div>
+        <div class="nav-container">
+          <label for="conversation-page" class="nav-button">会話ページ</label>
+        </div> -->
+        <div class="side-container inherit-height">
+          <div class="tool arrow-down-icon">
+            <div class="bubble-dropdown right">
+              <div class="bubble-option">
+                <span id="user-name">株式会社ジーアングル</span>
+              </div>
+              <div class="option-divider"></div>
+              <div class="bubble-option">
+                <label for="list-page" class="nav-button">会話リスト</label>
+              </div>
+              <div class="bubble-option">
+                <span>プロジェクト一覧</span>
+              </div>
+              <div class="option-divider"></div>
+              <div class="bubble-option">
+                <span>ログアウト</span>
+              </div>
+            </div>
+          </div>
+          <div id="project-name">Application Name</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-content">
+    <div id="list-page" class="page select1 select">
+      <div class="dark-section col-wrapper divider">
+        <div class="content-wrapper">
+          <div id="conversation-list-container" class="list-container">
+            <div class="list-header">
+              <div class="row-no-wrapper inherit-height">
+                <span>会話リスト</span>
+                <div class="list-tools row-no-wrapper inherit-height">
+                  <div id="add-conversation" class="list-button material-icons">&#xE145;</div>
+                  <div id="remove-item" class="list-button material-icons">&#xE16C;</div>
+                </div>
+              </div>
+            </div>
+            <ul id="conversation-list" class="list-content"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="conversation-page" class="page">
+      <div class="dark-section col-wrapper divider">
+        <div class="header-wrapper content-wrapper">
+          <div class="conversation-detail-section col-wrapper">
+            <i class="icon material-icons">&#xE0E0;</i>
+            <div class="titles">
+              <span for="list-page" id="project-title" class="nav-button">Application Name</span>
+            </div>
+            <div class="titles">
+              <span id="conversation-title">Untitled 1</span>
+            </div>
+            <div class="side-bar">
+              <div class="side-bar-wrapper">
+                <div id="save-conversation" class="button">セーブ</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-wrapper">
+            <div class="toggle-hide-container show">
+              <span class="toggle-hide">ペパーの設定</span>
+              <div class="hide-icon"></div>
+              <div class="toggle-hide-content">
+                <!-- Settings -->
+                <div class="row-wrapper">
+                  <div class="col-wrapper">
+                    <h1>Conversation Name</h1>
+                  </div>
+                  <div class="col-wrapper">
+                    <input type="text" name="conversation-name" placeholder="Say something">
+                  </div>
+                </div>
+                <div class="row-wrapper">
+                  <div class="col-wrapper">
+                    <h1>Trigger</h1>
+                  </div>
+                  <div class="col-wrapper">
+                    <div class="input-wrapper">
+                      <label id="trigger-option-container" for="option" class="option-box">
+                        <input id="option" type="text" name="option-input" value="Detect Human" readonly>
+                        <input type="number" name="select-option" value="0" readonly>
+                        <div class="input-label"></div>
+                        <ul class="drop-select">
+                          <li>
+                            <span>Detect Human</span>
+                            <input type="number" name="option-val" value="1" readonly>
+                          </li>
+                          <li>
+                            <span>Touch Hand</span>
+                            <input type="number" name="option-val" value="2" readonly>
+                          </li>
+                          <li>
+                            <span>Touch Head</span>
+                            <input type="number" name="option-val" value="3" readonly>
+                          </li>
+                          <li>
+                            <span>Talk</span>
+                            <input type="number" name="option-val" value="4" readonly>
+                          </li>
+                          <li>
+                            <span>Touch Right Hand</span>
+                            <input type="number" name="option-val" value="5" readonly>
+                          </li>
+                        </ul>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-wrapper">
+                  <div class="col-wrapper">
+                    <h1>Priority number</h1>
+                  </div>
+                  <div class="col-wrapper">
+                    <input id="priority" type="number" name="priority-number" min=1 max=100 value=1 required>
+                  </div>
+                </div>
+                <!-- Settings -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-wrapper">
+        <ul id="dialogue-container" class="content-wrapper">
+          <li class="dialogue show">
+            <div id="question-breadcrumb-list" class="breadcrumb-container divider"></div>
+
+            <div class="dialogue-form">
+              <div class="border-left">
+                <div class="row-no-wrapper">
+                  <div class="col-wrapper">
+                    <div class="col-wrapper">
+                      <h1>Pepper Question</h1>
+                    </div>
+                    <div class="col-wrapper">
+                      <input type="text" name="pepper-question" placeholder="What is Pepper's Question?">
+                    </div>
+                  </div>
+                  <div class="button-container side-container row-2">
+                    <div class="button-wrapper">
+                      <div id="add-response-group" class="button">Add Response</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ul id="dialogue-list"></ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,496 @@
+@import "utilities/variables";
+
+.input-wrapper{
+  width: $input-width;
+  height: $input-height;
+  position: relative;
+}
+
+h1{
+  color: gray;
+  font-size: 13px;
+  font-weight: 400;
+  display: block;
+}
+
+input[type="radio"], input[type="checkbox"]{
+  display: none;
+
+  & + label{
+    min-width: 100px;
+    max-width: 150px;
+    height: $input-height;
+    position: relative;
+    display: inline-flex;
+    position: relative;
+    cursor: pointer;
+
+    & > .checkbox{
+      width: $input-height;
+      height: $input-height;
+      position: relative;
+
+      &:before{
+        @extend .border-box;
+        content: "";
+        width: 70%;
+        height: 70%;
+        background-color: white;
+        border: solid 1px $border-color;
+        border-radius: $global-border-radius;
+        position: absolute;
+        top: calc(50% - (70% / 2));
+        left: calc(50% - (70% / 2));
+      }
+
+      &:after{
+        @extend .border-box;
+        content: "";
+        width: 40%;
+        height: 22%;
+        border-left: solid 2px white;
+        border-bottom: solid 2px white;
+        position: absolute;
+        top: calc(50% - ((22% + 2px) / 2));
+        left: calc(50% - (40% / 2));
+
+        transform-origin: center;
+        transform: rotate(-45deg) scale(.5);
+      }
+    }
+
+    & > span{
+      @extend .border-box;
+      @extend .center-block-elem;
+      padding: 10px;
+      padding-left: 0;
+      color: $border-color;
+      font-size: 12px;
+      font-weight: 400;
+
+      &.switch-label:before{
+        content: "OFF";
+      }
+    }
+
+    &:hover{
+      * {
+        color: black;
+      }
+
+      & > .checkbox:before{
+        border-color: $theme-color;
+
+        -webkit-transition: border 0s linear;
+           -moz-transition: border 0s linear;
+             -o-transition: border 0s linear;
+                transition: border 0s linear;
+      }
+    }
+  }
+
+  &:checked + label{
+    * {
+      color: gray;
+    }
+
+    & > .checkbox{
+      &:before{
+        background-color: $theme-color;
+        border-color: $theme-color;
+
+        -webkit-transition: border .2s ease-in, background-color .2s ease-in;
+           -moz-transition: border .2s ease-in, background-color .2s ease-in;
+             -o-transition: border .2s ease-in, background-color .2s ease-in;
+                transition: border .2s ease-in, background-color .2s ease-in;
+      }
+
+      &:after{
+        transform: rotate(-45deg) scale(1);
+
+        -webkit-transition: transform .2s ease-in;
+           -moz-transition: transform .2s ease-in;
+             -o-transition: transform .2s ease-in;
+                transition: transform .2s ease-in;
+      }
+    }
+
+    & > span{
+      &.switch-label:before{
+        content: "ON";
+      }
+    }
+  }
+}
+
+input[type="text"], input[type="number"]{
+  @extend .border-box;
+  max-width: $input-width;
+  height: $input-height;
+  padding: 5px;
+  color: gray;
+  background-color: $light-border-color;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: $default-font;
+  border: solid 1px $border-color;
+  border-radius: $global-border-radius;
+  outline: none;
+
+  -webkit-transition: color .2s linear, background-color .2s linear,
+                      border .2s linear;
+     -moz-transition: color .2s linear, background-color .2s linear,
+                      border .2s linear;
+       -o-transition: color .2s linear, background-color .2s linear,
+                      border .2s linear;
+          transition: color .2s linear, background-color .2s linear,
+                      border .2s linear;
+
+  &:focus{
+    color: black;
+    background-color: white;
+    border-color: $theme-color;
+  }
+}
+
+input[name="pepper-question"]:read-only{
+  padding: 0;
+  color: $theme-color;
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+  font-style: italic;
+
+  &:focus{
+    padding: 0;
+    color: $theme-color;
+    border: none;
+    background-color: transparent;
+  }
+}
+
+input[type="number"]{
+  width: 167px;
+}
+
+.option-box{
+  min-height: $input-height;
+  display: inline-flex;
+  position: relative;
+  font-size: 0;
+  cursor: pointer;
+
+  & > input[type="text"]{
+    margin: 0;
+    padding-right: 0;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    cursor: inherit;
+    color: gray;
+    background-color: $light-border-color;
+    border-color: $border-color;
+  }
+
+  & > input[type="number"]{
+    display: none;
+  }
+
+  & > .input-label{
+    &:before{
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent !important;
+      border-right: 5px solid transparent !important;
+      border-top: 5px solid $dark-border-color;
+      position: absolute;
+      top: calc(50% - (5px / 3));
+      left: calc(50% - ((5px * 2)) / 2);
+
+      -webkit-transition: border .2s linear;
+         -moz-transition: border .2s linear;
+           -o-transition: border .2s linear;
+              transition: border .2s linear;
+    }
+  }
+
+  // On Hover
+  &:hover{
+    & > input[type="text"], & > .input-label{
+      color: black !important;
+      background-color: white !important;
+      border-color: $theme-color !important;
+    }
+
+    & > .input-label:before{
+      border-color: $theme-color;
+    }
+
+    & > .drop-select{
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+  }
+}
+
+.input-label{
+  @extend .border-box;
+  min-width: $input-height;
+  height: $input-height;
+  background-color: $light-border-color;
+  border: solid 1px $border-color;
+  border-left: 0;
+  border-top-right-radius: $global-border-radius;
+  border-bottom-right-radius: $global-border-radius;
+  position: relative;
+
+  -webkit-transition: color .2s linear, background-color .2s linear,
+                      border .2s linear;
+     -moz-transition: color .2s linear, background-color .2s linear,
+                      border .2s linear;
+       -o-transition: color .2s linear, background-color .2s linear,
+                      border .2s linear;
+          transition: color .2s linear, background-color .2s linear,
+                      border .2s linear;
+}
+
+.drop-select{
+  @include shadow-box(5px, 0, lighten(black, 70%));
+  width: 100%;
+  min-height: $input-height;
+  background-color: white;
+  border-radius: $global-border-radius;
+  border-radius: $global-border-radius;
+  overflow: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(-5px);
+  pointer-events: none;
+
+  -webkit-transition: opacity .2s linear, transform .2s linear;
+     -moz-transition: opacity .2s linear, transform .2s linear;
+       -o-transition: opacity .2s linear, transform .2s linear;
+          transition: opacity .2s linear, transform .2s linear;
+
+  & > li{
+    @extend .border-box;
+    @extend .center-block-elem;
+    min-height: $input-height;
+    min-width: calc(#{$input-height} * 4);
+    color: gray;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    position: relative;
+
+    &:not(:last-child){
+      &:before{
+        content: "";
+        width: 90%;
+        height: 100%;
+        border-bottom: solid 1px $border-color;
+        position: absolute;
+        top: 0;
+        left: calc(50% - (90% / 2));
+      }
+    }
+
+    & span{
+      @extend .border-box;
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+    }
+
+    & > input[name="option-val"]{
+      display: none;
+    }
+
+    &:hover{
+      color: white;
+      background-color: $theme-color;
+
+      &:before{
+        border: none;
+      }
+    }
+
+    &:active{
+      background-color: darken($theme-color, 5%);
+    }
+  }
+}
+
+.button-wrapper{
+  @extend .center-block-elem;
+  position: relative;
+  // background-color: tomato;
+}
+
+.button{
+  @extend .border-box;
+  @extend .center-block-elem;
+  min-width: 80px;
+  height: $input-height;
+  padding: 5px;
+  font-size: 12px;
+  color: $theme-color;
+  border-radius: $global-border-radius;
+  border: solid 1px $theme-color;
+  cursor: pointer;
+
+  &:hover{
+    color: gray;
+    background-color: $light-border-color;
+    border-color: gray;
+  }
+
+  &:active{
+    color: white;
+    background-color: $theme-color;
+    border-color: $theme-color;
+  }
+
+  &.delete{
+    &:hover{
+      color: tomato;
+      background-color: transparentize(tomato, .8);
+      border-color: tomato;
+    }
+
+    &:active{
+      color: white;
+      background-color: tomato;
+      border-color: tomato;
+    }
+  }
+}
+
+.bottom{
+  position: absolute;
+  bottom: 0;
+}
+
+.button-icon{
+  @extend .border-box;
+  @extend .center-block-elem;
+  min-height: $input-height;
+  margin-left: 5px;
+  color: gray;
+  cursor: pointer;
+
+  &:hover{
+    color: $theme-color;
+  }
+
+  &:active{
+    color: $border-color;
+  }
+
+  &.delete{
+    &:hover{
+      color: tomato;
+    }
+    &:active{
+      color: $border-color;
+    }
+  }
+}
+
+.top-right-button{
+  margin: 5px;
+  color: gray;
+  font-size: 18px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.tool-tip-container{
+  position: relative;
+
+  &:hover:not(:active) > .tool-tip{
+    opacity: 1;
+
+    -webkit-transition: opacity 0s ease-in .5s;
+       -moz-transition: opacity 0s ease-in .5s;
+         -o-transition: opacity 0s ease-in .5s;
+            transition: opacity 0s ease-in .5s;
+  }
+}
+
+.tool-tip{
+  &:not(:empty){
+    @extend .center-block-elem;
+    @extend .border-box;
+    min-width: $input-height * 3;
+    min-height: $input-height;
+    padding: 5px;
+    color: white;
+    background-color: $custom-black;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 1px;
+    opacity: 0;
+    z-index: 1;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    pointer-events: none;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+
+    -webkit-transition: none;
+       -moz-transition: none;
+         -o-transition: none;
+            transition: none;
+
+    &:before{
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid $custom-black;
+      position: absolute;
+      bottom: 100%;
+      left: calc(50% - 5px);
+    }
+
+    &.left{
+      right: auto;
+      left: 0;
+      -webkit-transform: translateX(0%);
+      transform: translateX(0%);
+
+      &:before{
+        right: auto;
+        left: 5px;
+      }
+    }
+
+    &.right{
+      left: auto;
+      right: 0;
+      -webkit-transform: translateX(0%);
+      transform: translateX(0%);
+
+      &:before{
+        left: auto;
+        right: 5px;
+      }
+    }
+
+    &.inherit-width{
+      width: 100%;
+    }
+  }
+}

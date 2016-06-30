@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Conversation</title>
+<!-- <link rel="shortcut icon" type="image/png" href="css/images/tiny-favicon.png"/> -->
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<script src="js/structure.js"></script>
+<script src="js/interaction.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/template.css">
+<link rel="stylesheet" type="text/css" href="css/form.css">
+</head>
+<body>
+  <div class="row-wrapper">
+    <input id="radio" type="radio" name="name" value="" checked>
+    <label for="radio">
+      <div class="checkbox"></div>
+      <span>Radio</span>
+    </label>
+
+    <input id="radio2" type="radio" name="name" value="">
+    <label for="radio2">
+      <div class="checkbox"></div>
+      <span>Radio 2</span>
+    </label>
+
+    <input id="radio3" type="radio" name="name" value="">
+    <label for="radio3">
+      <div class="checkbox"></div>
+      <span>Radio 3</span>
+    </label>
+  </div>
+
+
+  <div class="row-wrapper">
+    <div class="col-wrapper">
+      <div class="row-wrapper">
+        <h1>Checkbox</h1>
+      </div>
+      <div class="row-wrapper">
+        <input id="radio4" type="checkbox" name="name" value="" checked>
+        <label for="radio4">
+          <div class="checkbox"></div>
+          <span>Check</span>
+        </label>
+
+        <input id="radio5" type="checkbox" name="name" value="">
+        <label for="radio5">
+          <div class="checkbox"></div>
+          <span>Check 2</span>
+        </label>
+
+        <input id="radio6" type="checkbox" name="name" value="">
+        <label for="radio6">
+          <div class="checkbox"></div>
+          <span>Check 3</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-wrapper">
+    <div class="col-wrapper">
+      <h1>Text Input</h1>
+    </div>
+    <div class="col-wrapper">
+      <input type="text" name="name" placeholder="Say something">
+    </div>
+  </div>
+
+  <div class="row-wrapper">
+    <div class="col-wrapper">
+      <h1>Option Box</h1>
+    </div>
+    <div class="col-wrapper">
+      <div class="input-wrapper">
+        <label for="option" class="option-box">
+          <input id="option" type="text" name="option-input" value="Detect Human" readonly>
+          <input type="number" name="select-option" value="0" readonly>
+          <div class="input-label"></div>
+          <ul class="drop-select">
+            <li>
+              <span>Detect Human</span>
+              <input type="number" name="option-val" value="0" readonly>
+            </li>
+            <li>
+              <span>Touch Hand</span>
+              <input type="number" name="option-val" value="1" readonly>
+            </li>
+            <li>
+              <span>Touch Head</span>
+              <input type="number" name="option-val" value="2" readonly>
+            </li>
+          </ul>
+        </label>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
