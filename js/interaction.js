@@ -78,14 +78,6 @@ function navigateButton(){
   });
 }
 
-function listElemHover($element){
-  $element.on("hover", function(){
-    $listContainer = $(this).closest("ul");
-    $listContainer.find(".list-element-focus").removeClass("list-element-focus");
-    $(this).addClass("list-element-focus");
-  });
-}
-
 function addConversation(conversation){
   var conversation_Obj = conversation || new Conversation();
   var conversation_ID = "conversation-"+conversation_Obj.localID;
@@ -115,8 +107,6 @@ function addConversation(conversation){
   var $listElement = $("#"+conversation_ID);
   var $removeButton = $listElement.find("#remove-button");
 
-  listElemHover($listElement);
-
   $listElement.unbind().on("click", function(){
     var temp_conversation = conversation_Obj || new Conversation();
     temp_conversation = Clone(conversationCollection[conversation_Obj.localID]);
@@ -128,10 +118,22 @@ function addConversation(conversation){
     $(".toggle-hide-container").addClass("show");
   });
 
-  $removeButton.on("click", function(){
-    temp_conversation.remove = 1;
-    $listElement.remove();
+  $removeButton.on("click", function(e){
+    e.stopPropagation()
+    var message = "Are you sure you want to remove this conversation?</br>You cannot undo this action.";
+    confirmModal(message, function(){
+      var temp_conversation = conversation_Obj || new Conversation();
+      temp_conversation.dis = 0;
+      deleteConversation(temp_conversation.id);
+      $listElement.remove();
+    });
   })
+
+  $listElement.on("hover", function(){
+    $listContainer = $(this).closest("ul");
+    $listContainer.find(".list-element-focus").removeClass("list-element-focus");
+    $(this).addClass("list-element-focus");
+  });
 }
 
 function viewConversation(id, conversationObj){
@@ -219,13 +221,16 @@ function viewConversation(id, conversationObj){
       updateConversation(conversationObj);
     }
   });
+
+  // Change conversation title
+  $conversationNameField.val(conversationObj.title).change();
 }
 
 function clearConversation(){
   $("#conversation-list-container").find("#remove-item").on("click",
     function(){
       for(i = 0; i < conversationCollection.length; i++){
-        conversationCollection[i].remove = 1;
+        conversationCollection[i].dis = 0;
         $("#conversation-"+conversationCollection[i].localID).remove();
       }
     });
@@ -311,7 +316,7 @@ function addResponseGroup(conversationObj, response){
   var $responseGroupElem = $('#'+responseID);
   var $userResponseList = $responseGroupElem.find("#user-response-list");
 
-  $responseGroupElem.find("input[name='display-response']").attr("checked", response.display);
+  $responseGroupElem.find("input[name='display-response']").attr("checked", (response.enabled==1) ? true : false);
 
   // Add Response Reply
   $responseGroupElem.find("#add-reply").on("click", function(){
@@ -327,16 +332,16 @@ function addResponseGroup(conversationObj, response){
   $responseGroupElem.find("#delete-response").on("click", function(){
     var message = "Are you sure you want to remove this?</br>You cannot undo this action.";
     confirmModal(message, function(){
-      response.remove = 1;
+      response.dis = 0;
       $responseGroupElem.closest(".dialogue-box").remove();
     });
   });
 
   // Add 1 initial user response on add new response group
-  if(response.userReplies.length <= 0){
-    var newUserResponse = response.addUserResponse();
-    appendUserResponse($userResponseList, response, newUserResponse);
-  }
+  // if(response.userReplies.length <= 0){
+  //   var newUserResponse = response.addUserResponse();
+  //   appendUserResponse($userResponseList, response, newUserResponse);
+  // }
 
   // Add user response
   $responseGroupElem.find("#add-user-response").on("click", function(){
@@ -351,8 +356,8 @@ function addResponseGroup(conversationObj, response){
       var message = "You are about to delete "+elementCount+" element/s.</br>Are you sure about this?";
       confirmModal(message, function(){
         for(ctr = 0; ctr < response.userReplies.length; ctr++){
-          if(response.userReplies[ctr].remove != 1){
-            response.userReplies[ctr].remove = 1;
+          if(response.userReplies[ctr].dis == 1){
+            response.userReplies[ctr].dis = 0;
           }
         }
         $responseGroupElem.closest(".dialogue-box").find("#user-response-list").empty();
@@ -385,7 +390,7 @@ function addResponseGroup(conversationObj, response){
   // Bind Display value
   var $displayBox = $responseGroupElem.find("input[name='display-response']");
   $displayBox.on("change", function(){
-    response.display = $(this).is(":checked");
+    response.enabled = ($(this).is(":checked")) ? 1 : 0;
   });
 }
 
@@ -417,13 +422,17 @@ function appendUserResponse($listContainer, responseObj, userResponse){
   var $removeUserResponse = $userResponseElem.find(".delete");
 
   $userResponseText.on("change", function(){
+    console.log("MODIFYING THIS USER RESPONSE: " + JSON.stringify(userResponse));
     userResponse.text = $(this).val();
   });
 
+  // Delete user reply
+  // Delete user response
   $removeUserResponse.on("click", function(){
     var message = "Are you sure you want to delete this user response? You cannot undo this action.";
     confirmModal(message, function(){
-      userResponse.remove = 1;
+      userResponse.dis = 0;
+      console.log("MODIFYING THIS USER RESPONSE: " + JSON.stringify(userResponse));
       $removeUserResponse.closest(".user-response").remove();
     });
   });

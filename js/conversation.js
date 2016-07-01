@@ -61,7 +61,6 @@ function displayBreadcrumbs(conversation){
   // Display Breadcrumbs
   for(parent = conversation.pepperTalks[currentDialogue].localID; parent > -1;
     parent = conversation.pepperTalks[parent].parent){
-    console.log(parent);
     var pepperQuestion = conversation.pepperTalks[parent].pepperText;
     $questionBreadcrumbList.prepend(
       '<div class="breadcrumb" data-peppertalk-link="'+conversation.pepperTalks[parent].localID+'"><span>'+ pepperQuestion +'</span></div>'
@@ -93,10 +92,10 @@ function viewPepperTalk(conversation, pepperTalk){
 
 
   for(ctr = 0; ctr < pepperTalk.groups.length; ctr++){
-    if(pepperTalk.groups[ctr].remove == 0){
+    if(pepperTalk.groups[ctr].dis == 1){
       addResponseGroup(conversation, pepperTalk.groups[ctr]);
       for(ctr2 = 0; ctr2 < pepperTalk.groups[ctr].userReplies.length; ctr2++){
-        if(pepperTalk.groups[ctr].userReplies[ctr2].remove == 0){
+        if(pepperTalk.groups[ctr].userReplies[ctr2].dis == 1){
           var $responseGroupElem = $("#response-group-"+pepperTalk.groups[ctr].localID);
           var $userResponseList = $responseGroupElem.find("#user-response-list");
           appendUserResponse($userResponseList, pepperTalk.groups[ctr], pepperTalk.groups[ctr].userReplies[ctr2]);

@@ -12,7 +12,7 @@ function Conversation(props = []){
         this.sharp = props.conversation_sharp || -1;
         this.speed = props.conversation_speed || -1;
        this.client = props.conversation_client || -1;
-       this.remove = props.conversation_remove || 0;
+       this.dis = props.conversation_dis || 1;
 
  this.addDialogue = function (pepperTalk){
    var dialogue = pepperTalk || new PepperTalk();
@@ -42,7 +42,7 @@ function Conversation(props = []){
     "conversation_dialogFile": "",
     "conversation_language": "",
     "conversation_client": this.client,
-    "conversation_dis": this.display,
+    "conversation_dis": this.dis,
     "pepperTalks": jsonPepperTalks
   }
  }
@@ -61,8 +61,7 @@ function PepperTalk(props = []){
          this.group = props.pepperTalk_group || -1;
   this.conversation = props.pepperTalk_conversation || -1;
         this.output = props.pepperTalk_output || "";
-        this.remove = props.pepperTalk_remove || 0;
-       this.display = props.pepperTalk_dis || 1;
+        this.dis = props.pepperTalk_dis || 1;
 
  this.addResponse = function (group){
    var response = group || new Group();
@@ -79,7 +78,10 @@ function PepperTalk(props = []){
   //todo: jsonify groups
   for(var index in this.groups){
     var group = this.groups[index];
-    jsonGroups.push(group.toJson());
+
+    if(group.dis == 1){
+      jsonGroups.push(group.toJson());
+    }
   }
 
   return {
@@ -88,7 +90,7 @@ function PepperTalk(props = []){
     "pepperTalk_conversation": this.conversation,
     "pepperTalk_text": this.pepperText,
     "pepperTalk_output": output || this.output,
-    "pepperTalk_dis": this.display,
+    "pepperTalk_dis": this.dis,
     "groups": jsonGroups
   }
  }
@@ -105,8 +107,8 @@ function Group(props = []){
            
                         this.id = props.group_id || -1;
           this.pepperTalkParent = props.group_pepperTalkParent || -1;
-                   this.display = props.group_dis || true;
-                    this.remove = props.group_remove || 0;
+                       this.dis = props.group_dis || 1;
+                   this.enabled = props.group_enabled || 1;
   this.pepperParentConversation = props.group_pepperParentConversation || -1;
 
  this.addUserResponse = function(userReply){
@@ -139,6 +141,11 @@ function Group(props = []){
   var jsonUserReplies = [];
   for(var index in this.userReplies){
     var userReply = this.userReplies[index];
+
+    if(userReply.id == -1 && userReply.dis == 0){
+      continue;
+    }
+
     jsonUserReplies.push(userReply.toJson());
   }
 
@@ -146,7 +153,8 @@ function Group(props = []){
     "group_id": this.id,
     "group_pepperTalkParent": this.pepperTalkParent,
     "group_pepperParentConversation": this.pepperParentConversation,
-    "group_dis": this.display,
+    "group_dis": this.dis,
+    "group_enabled": (this.enabled) ? 1 : 0,
     "userReplies": jsonUserReplies,
     "pepperTalk": jsonPepperTalk
   }
@@ -160,15 +168,14 @@ function UserReply(props = []){
        this.id = props.userReply_id || -1;
     this.group = props.userReply_group || "";
    this.answer = props.userReply_answer || "";
-   this.remove = props.userReply_remove || 0;
-  this.display = props.userReply_dis || 1;
+      this.dis = props.userReply_dis || 1;
 
   this.toJson = function(){
     return {
       "userReply_id": this.id,
       "userReply_group": this.group,
       "userReply_answer": this.text,
-      "userReply_dis": this.display
+      "userReply_dis": this.dis
     }
   }
 }

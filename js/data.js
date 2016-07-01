@@ -1,10 +1,12 @@
+var apiUrl = '/communication_web/php/conversations';
+
 $(document).ready(function() {
 	fetchConversations();
 });
 
 function fetchConversations(){
 	$.ajax({
-		url: '/communication_web/php/conversations',
+		url: apiUrl,
 		type: 'GET',
 		dataType: 'json',
 		success: function(conversations) {
@@ -84,7 +86,7 @@ function saveConversation(conversation){
 	// return;
 
 	$.ajax({
-		url: '/communication_web/php/conversations',
+		url: apiUrl,
 		data: JSON.stringify(conversation.toJson()),
 		type: 'POST',
 		dataType: 'json',
@@ -121,11 +123,11 @@ function saveConversation(conversation){
 
 function updateConversation(conversation){
 	console.log('update');
-	console.log(JSON.stringify(conversation.toJson()));
+	console.log('to update ' + JSON.stringify(conversation.toJson()));
 	console.log(JSON.stringify(conversation));
 
 	$.ajax({
-		url: '/communication_web/php/conversations/' + conversation.id,
+		url: apiUrl + '/' + conversation.id,
 		data: JSON.stringify(conversation.toJson()),
 		type: 'PUT',
 		dataType: 'json',
@@ -146,11 +148,30 @@ function updateConversation(conversation){
 			viewPepperTalk(currentConversation, conversation.pepperTalks[gotoThisDialogue]);
 
 			console.log("current conversation after update:");
-			console.log(currentConversation);
+			console.log(JSON.stringify(currentConversation));
+			// console.log(currentConversation);
 		},
 		error: function(e) {
 			console.log(e);
 			alert("ERROR");
 		}
 	});
+}
+
+function deleteConversation(conversationId){
+	$.ajax({
+		url: apiUrl + '/' + conversationId,
+		type: 'DELETE',
+		dataType: 'json',
+		contentType: 'application/json',
+		processData: false,
+		success: function(data) {
+			console.log("delete successful");
+		},
+		error: function(e) {
+			console.log(e);
+			alert("ERROR");
+		}
+	});
+
 }
