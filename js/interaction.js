@@ -121,7 +121,7 @@ function addConversation(conversation){
     var temp_conversation = conversation_Obj || new Conversation();
     temp_conversation = Clone(conversationCollection[conversation_Obj.localID]);
     currentConversation = temp_conversation;
-    viewConversation($listElement, temp_conversation);
+    viewConversation($listElement.attr('id').replace(/\D/g,''), temp_conversation);
 
     $(".page.select").removeClass("select");
     $("#conversation-page").addClass("select");
@@ -134,9 +134,7 @@ function addConversation(conversation){
   })
 }
 
-function viewConversation($element, conversationObj){
-  var id = $element.attr('id').replace(/\D/g,'');
-
+function viewConversation(id, conversationObj){
   // Conversation Settings
   var $conversationNameField = $( "input[name='conversation-name']" );
   var $conversationTrigger = $( "#trigger-option-container" );
@@ -210,7 +208,10 @@ function viewConversation($element, conversationObj){
     conversationObj.priority = $conversationPriority.val();
     conversationListElem.find(".priority-number").text($conversationPriority.val());
 
-    console.log("TO SAVE: " + JSON.stringify(conversationObj));
+    // console.log("TO SAVE: " + JSON.stringify(conversationObj));
+
+    console.log("convo before save/update:");
+    console.log(currentConversation);
 
     if(currentConversation.id <= 0){
       saveConversation(conversationObj);
@@ -239,6 +240,13 @@ function toggleHide(){
 function addResponseGroup(conversationObj, response){
   var currDialogue = conversationObj.pepperTalks[currentDialogue];
   var responseID = "response-group-"+response.localID;
+
+  if(response.child == -1){
+    var newDialogue = conversationObj.addDialogue();
+    newDialogue.parent = response.localPepperTalkParent;
+    newDialogue.pepperText = response.pepperResponse;
+    response.child = newDialogue.localID;
+  }
 
   $("#dialogue-list").prepend(
     '<li id="'+ responseID +'" class="dialogue-box">'+
@@ -365,7 +373,13 @@ function addResponseGroup(conversationObj, response){
   // Bind Box Output
   var $boxOutput = $responseGroupElem.find("input[name='box-output']");
   $boxOutput.on("change", function(){
-    response.output = $(this).val();
+    response.output = ($(this).val());
+
+    console.log(response);
+
+    if(response.child > -1){
+      conversationObj.pepperTalks[response.child].output = response.output;
+    }
   });
 
   // Bind Display value

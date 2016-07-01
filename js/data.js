@@ -58,11 +58,11 @@ function addPepperTalk(currentPepperTalk, newConvo){
 			if(groupProps.pepperTalk){
 				newGroup.pepperResponse = groupProps.pepperTalk.pepperTalk_text;
 				newGroup.output = groupProps.pepperTalk.pepperTalk_output;
-				currentPepperTalk = groupProps.pepperTalk;
-				currentPepperTalk.parent = newGroup.localID;
+				// currentPepperTalk = groupProps.pepperTalk;
 				
-				var newlyAddedPepperTalk = addPepperTalk(currentPepperTalk, newConvo);
+				var newlyAddedPepperTalk = addPepperTalk(groupProps.pepperTalk, newConvo);
 				newGroup.child = newlyAddedPepperTalk.localID;
+				newlyAddedPepperTalk.parent = newGroup.localPepperTalkParent;
 			}
 
 			// Each user reply of group
@@ -79,6 +79,7 @@ function addPepperTalk(currentPepperTalk, newConvo){
 function saveConversation(conversation){
 	// console.log("THE COLLECTION BEFORE SAVE: " + JSON.stringify(conversationCollection));
 	console.log("SAVE THIS: " + JSON.stringify(conversation));
+	// console.log("SAVE THIS JSON: " + JSON.stringify(conversation.toJson()));
 
 	// return;
 
@@ -90,18 +91,26 @@ function saveConversation(conversation){
 		contentType: 'application/json',
 		processData: false,
 		success: function(data) {
-			console.log("SAVEDDD: " + JSON.stringify(data));
+			console.log("data after ajax: " + JSON.stringify(data));
 
-			var c = createConversationObjectFromJson(data);
+			data.localID = conversation.localID;
 
-			console.log(JSON.stringify(c));
+			var conversationObjectFromJson = createConversationObjectFromJson(data);
+
+			// console.log(JSON.stringify(c));
 			
-			return;
-
 			// Update temp to conversation collection
-			conversationCollection[conversation.localID] = newconversation;
-			currentConversation = Clone(newconversation);
-			console.log("THE COLLECTION AFTER SAVE: " + JSON.stringify(conversationCollection));
+			conversationCollection[conversation.localID] = conversationObjectFromJson;
+			currentConversation = Clone(conversationObjectFromJson);
+			console.log("current conversation: ");
+			console.log(currentConversation);
+
+			var gotoThisDialogue = currentDialogue;
+
+			viewConversation(conversation.localID, currentConversation);
+			viewPepperTalk(currentConversation, conversation.pepperTalks[gotoThisDialogue]);
+
+			// console.log("THE COLLECTION AFTER SAVE: " + JSON.stringify(conversationCollection));
 		},
 		error: function(e) {
 			console.log(e);
@@ -113,6 +122,7 @@ function saveConversation(conversation){
 function updateConversation(conversation){
 	console.log('update');
 	console.log(JSON.stringify(conversation.toJson()));
+	console.log(JSON.stringify(conversation));
 
 	$.ajax({
 		url: '/communication_web/php/conversations/' + conversation.id,
@@ -122,15 +132,21 @@ function updateConversation(conversation){
 		contentType: 'application/json',
 		processData: false,
 		success: function(data) {
-			var c = createConversationObjectFromJson(data);
+			console.log("data after ajax " + data);
 
-			console.log("Conversation after updating:");
-			console.log(JSON.stringify(c));
+			data.localID = conversation.localID;
+			var conversationObjectFromJson = createConversationObjectFromJson(data);
 
-			return;
+			conversationCollection[conversation.localID] = conversationObjectFromJson;
+			currentConversation = Clone(conversationObjectFromJson);
 
-			conversationCollection[conversation.localID] = new Conversation(data);
-			console.log(conversationCollection[conversation.localID]);
+			var gotoThisDialogue = currentDialogue;
+
+			viewConversation(conversation.localID, currentConversation);
+			viewPepperTalk(currentConversation, conversation.pepperTalks[gotoThisDialogue]);
+
+			console.log("current conversation after update:");
+			console.log(currentConversation);
 		},
 		error: function(e) {
 			console.log(e);

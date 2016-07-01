@@ -61,7 +61,7 @@ function displayBreadcrumbs(conversation){
   // Display Breadcrumbs
   for(parent = conversation.pepperTalks[currentDialogue].localID; parent > -1;
     parent = conversation.pepperTalks[parent].parent){
-    // console.log(parent);
+    console.log(parent);
     var pepperQuestion = conversation.pepperTalks[parent].pepperText;
     $questionBreadcrumbList.prepend(
       '<div class="breadcrumb" data-peppertalk-link="'+conversation.pepperTalks[parent].localID+'"><span>'+ pepperQuestion +'</span></div>'
