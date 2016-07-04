@@ -316,7 +316,7 @@ function addResponseGroup(conversationObj, response){
   var $responseGroupElem = $('#'+responseID);
   var $userResponseList = $responseGroupElem.find("#user-response-list");
 
-  $responseGroupElem.find("input[name='display-response']").attr("checked", (response.enabled==1) ? true : false);
+  $responseGroupElem.find("input[name='display-response']").attr("checked", (response.enabled==1 || response.enabled === "undefined") ? true : false);
 
   // Add Response Reply
   $responseGroupElem.find("#add-reply").on("click", function(){
