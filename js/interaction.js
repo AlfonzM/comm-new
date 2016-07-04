@@ -11,6 +11,13 @@ $(document).ready(function() {
   });
   clearConversation();
   toggleHide();
+
+  $("#logout-button").on("click", function(){
+    confirmModal('Are you sure you want to log-out?', function(){
+      // logout here
+    });
+  });
+
 });
 
 function optionBox(){

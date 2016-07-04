@@ -27,7 +27,7 @@
   -webkit-justify-content: center;
   justify-content: center; }
 
-.center-inline-elem, .side-container > .tool, #project-name {
+.center-inline-elem, .side-container > .tool, .arrow-down-icon:before, #project-name {
   display: -webkit-inline-flex !important;
   display: inline-flex !important;
   -webkit-align-items: center !important;
@@ -43,7 +43,7 @@
 .show-block {
   display: block !important; }
 
-.google-icons {
+.google-icons, .arrow-down-icon:before {
   font-family: 'Material Icons';
   -webkit-font-feature-settings: 'liga'; }
 
@@ -157,15 +157,7 @@ ul {
   margin-left: 10px; }
 
 .arrow-down-icon:before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid silver;
-  position: absolute;
-  left: calc(50% - 5px);
-  top: calc(50% - (5px / 2)); }
+  content: "\E5D2"; }
 .arrow-down-icon:hover:before {
   border-top-color: #4078c0; }
 
@@ -230,7 +222,7 @@ ul {
     left: 8px; }
   .bubble-dropdown.right {
     left: auto;
-    right: -18px; }
+    right: -8px; }
     .bubble-dropdown.right:before {
       content: "";
       width: 0;

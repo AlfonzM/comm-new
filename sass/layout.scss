@@ -82,15 +82,16 @@ $modal-height: 250px;
 
 .arrow-down-icon{
   &:before{
-    content: "";
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid $dark-border-color;
-    position: absolute;
-    left: calc(50% - 5px);
-    top: calc(50% - (5px / 2));
+    @extend .google-icons;
+    @extend .center-inline-elem;
+    content: "\E5D2";
+    // height: 100%;
+    // border-left: 5px solid transparent;
+    // border-right: 5px solid transparent;
+    // border-top: 5px solid $dark-border-color;
+    // position: absolute;
+    // left: calc(50% - 5px);
+    // top: calc(50% - (5px / 2));
   }
 
   &:hover:before{
@@ -167,7 +168,7 @@ $modal-height: 250px;
 
   &.right{
     left: auto;
-    right: -18px;
+    right: -8px;
 
     &:before{
       content: "";

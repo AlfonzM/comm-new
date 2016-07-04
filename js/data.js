@@ -9,7 +9,7 @@ function fetchConversations(){
 		url: apiUrl,
 		type: 'GET',
 		dataType: 'json',
-		timeout: 5000,
+		timeout: 60000,
 		success: function(conversations) {
 			createConversationCollectionFromJson(conversations);
 		},
