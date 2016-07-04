@@ -9,11 +9,12 @@ function fetchConversations(){
 		url: apiUrl,
 		type: 'GET',
 		dataType: 'json',
+		timeout: 60000,
 		success: function(conversations) {
 			createConversationCollectionFromJson(conversations);
 		},
 		error: function(e) {
-			alert("ERROR");
+			alertModal("Sorry, there was a problem getting the data from the database. Please try again.");
 		}
 	});
 }
@@ -91,6 +92,7 @@ function saveConversation(conversation){
 		dataType: 'json',
 		contentType: 'application/json',
 		processData: false,
+		timeout: 60000,
 		success: function(data) {
 			console.log("data after ajax: " + JSON.stringify(data));
 
@@ -113,8 +115,7 @@ function saveConversation(conversation){
 			console.log(JSON.stringify(currentConversation));
 		},
 		error: function(e) {
-			console.log(e);
-			alert("ERROR");
+			alertModal("Sorry, there was a problem saving the conversation. Please try again.");
 		}
 	});
 }
@@ -131,6 +132,7 @@ function updateConversation(conversation){
 		dataType: 'json',
 		contentType: 'application/json',
 		processData: false,
+		timeout: 60000,
 		success: function(data) {
 			console.log("data after ajax " + JSON.stringify(data));
 
@@ -150,8 +152,7 @@ function updateConversation(conversation){
 
 		},
 		error: function(e) {
-			console.log(e);
-			alert("ERROR");
+			alertModal("Sorry, there was a problem saving the conversation. Please try again.");
 		}
 	});
 }
@@ -163,12 +164,13 @@ function deleteConversation(conversationId){
 		dataType: 'json',
 		contentType: 'application/json',
 		processData: false,
+		timeout: 60000,
 		success: function(data) {
 			console.log("delete successful");
 		},
 		error: function(e) {
 			console.log(e);
-			alert("ERROR");
+			alertModal("Sorry, there was a problem deleting the conversation. Please try again.");
 		}
 	});
 
