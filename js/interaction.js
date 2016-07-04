@@ -396,8 +396,8 @@ function addResponseGroup(conversationObj, response){
 
 function appendUserResponse($listContainer, responseObj, userResponse){
   var userResponseID = "user-response-"+ currentDialogue +"-"+
-  responseObj.localID +"-"+
-  userResponse.localID;
+    responseObj.localID +"-"+
+    userResponse.localID;
 
   $listContainer.prepend(
     '<li id="'+ userResponseID +'" class="user-response">'+

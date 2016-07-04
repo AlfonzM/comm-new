@@ -46,9 +46,6 @@ function Conversation(props = []){
     "pepperTalks": jsonPepperTalks
   }
  }
-
- // console.log(this);
- // console.log(JSON.stringify(this));
 }
 
 function PepperTalk(props = []){
@@ -79,9 +76,11 @@ function PepperTalk(props = []){
   for(var index in this.groups){
     var group = this.groups[index];
 
-    if(group.dis == 1){
-      jsonGroups.push(group.toJson());
+    if(group.id == -1 && group.dis == 0){
+      continue;
     }
+
+    jsonGroups.push(group.toJson());
   }
 
   return {
@@ -108,7 +107,7 @@ function Group(props = []){
                         this.id = props.group_id || -1;
           this.pepperTalkParent = props.group_pepperTalkParent || -1;
                        this.dis = props.group_dis || 1;
-                   this.enabled = props.group_enabled || 1;
+                   this.enabled = props.group_enabled + "" || 1;
   this.pepperParentConversation = props.group_pepperParentConversation || -1;
 
  this.addUserResponse = function(userReply){

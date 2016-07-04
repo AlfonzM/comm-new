@@ -60,7 +60,6 @@ function addPepperTalk(currentPepperTalk, newConvo){
 			if(groupProps.pepperTalk){
 				newGroup.pepperResponse = groupProps.pepperTalk.pepperTalk_text;
 				newGroup.output = groupProps.pepperTalk.pepperTalk_output;
-				// currentPepperTalk = groupProps.pepperTalk;
 				
 				var newlyAddedPepperTalk = addPepperTalk(groupProps.pepperTalk, newConvo);
 				newGroup.child = newlyAddedPepperTalk.localID;
@@ -104,15 +103,14 @@ function saveConversation(conversation){
 			// Update temp to conversation collection
 			conversationCollection[conversation.localID] = conversationObjectFromJson;
 			currentConversation = Clone(conversationObjectFromJson);
-			console.log("current conversation: ");
-			console.log(currentConversation);
 
 			var gotoThisDialogue = currentDialogue;
 
-			viewConversation(conversation.localID, currentConversation);
-			viewPepperTalk(currentConversation, conversation.pepperTalks[gotoThisDialogue]);
+			viewConversation(conversationObjectFromJson.localID, conversationObjectFromJson);
+			viewPepperTalk(conversationObjectFromJson, conversationObjectFromJson.pepperTalks[gotoThisDialogue]);
 
-			// console.log("THE COLLECTION AFTER SAVE: " + JSON.stringify(conversationCollection));
+			console.log("current conversation after save:");
+			console.log(JSON.stringify(currentConversation));
 		},
 		error: function(e) {
 			console.log(e);
@@ -123,8 +121,8 @@ function saveConversation(conversation){
 
 function updateConversation(conversation){
 	console.log('update');
-	console.log('to update ' + JSON.stringify(conversation.toJson()));
-	console.log(JSON.stringify(conversation));
+	console.log('to update ' + JSON.stringify(conversation));
+	console.log('to update jsoned ' + JSON.stringify(conversation.toJson()));
 
 	$.ajax({
 		url: apiUrl + '/' + conversation.id,
@@ -134,7 +132,7 @@ function updateConversation(conversation){
 		contentType: 'application/json',
 		processData: false,
 		success: function(data) {
-			console.log("data after ajax " + data);
+			console.log("data after ajax " + JSON.stringify(data));
 
 			data.localID = conversation.localID;
 			var conversationObjectFromJson = createConversationObjectFromJson(data);
@@ -144,12 +142,12 @@ function updateConversation(conversation){
 
 			var gotoThisDialogue = currentDialogue;
 
-			viewConversation(conversation.localID, currentConversation);
-			viewPepperTalk(currentConversation, conversation.pepperTalks[gotoThisDialogue]);
-
 			console.log("current conversation after update:");
-			console.log(JSON.stringify(currentConversation));
-			// console.log(currentConversation);
+			console.log(JSON.stringify(conversationObjectFromJson));
+
+			viewConversation(conversationObjectFromJson.localID, conversationObjectFromJson);
+			viewPepperTalk(conversationObjectFromJson, conversationObjectFromJson.pepperTalks[gotoThisDialogue]);
+
 		},
 		error: function(e) {
 			console.log(e);
