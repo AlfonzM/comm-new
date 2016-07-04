@@ -1,7 +1,7 @@
 var apiUrl = '/communication_web/php/conversations';
 
-$(document).ready(function() {
-	fetchConversations();
+$(document).ready(function() {	
+	fetchConversations();	
 });
 
 function fetchConversations(){
@@ -9,7 +9,7 @@ function fetchConversations(){
 		url: apiUrl,
 		type: 'GET',
 		dataType: 'json',
-		timeout: 60000,
+		timeout: 5000,
 		success: function(conversations) {
 			createConversationCollectionFromJson(conversations);
 		},
@@ -82,9 +82,9 @@ function saveConversation(conversation){
 	// console.log("THE COLLECTION BEFORE SAVE: " + JSON.stringify(conversationCollection));
 	console.log("SAVE THIS: " + JSON.stringify(conversation));
 	// console.log("SAVE THIS JSON: " + JSON.stringify(conversation.toJson()));
+	$("#save-conversation").addClass("is-loading");
 
 	// return;
-
 	$.ajax({
 		url: apiUrl,
 		data: JSON.stringify(conversation.toJson()),
@@ -113,6 +113,10 @@ function saveConversation(conversation){
 
 			console.log("current conversation after save:");
 			console.log(JSON.stringify(currentConversation));
+
+			statusNotification("Saved successfully...", null, function(){
+				$("#save-conversation").removeClass("is-loading");
+			});
 		},
 		error: function(e) {
 			alertModal("Sorry, there was a problem saving the conversation. Please try again.");
@@ -124,6 +128,8 @@ function updateConversation(conversation){
 	console.log('update');
 	console.log('to update ' + JSON.stringify(conversation));
 	console.log('to update jsoned ' + JSON.stringify(conversation.toJson()));
+
+	$("#save-conversation").addClass("is-loading");
 
 	$.ajax({
 		url: apiUrl + '/' + conversation.id,
@@ -150,6 +156,10 @@ function updateConversation(conversation){
 			viewConversation(conversationObjectFromJson.localID, conversationObjectFromJson);
 			viewPepperTalk(conversationObjectFromJson, conversationObjectFromJson.pepperTalks[gotoThisDialogue]);
 
+
+			statusNotification("Saved successfully...", null, function(){
+				$("#save-conversation").removeClass("is-loading");
+			});
 		},
 		error: function(e) {
 			alertModal("Sorry, there was a problem saving the conversation. Please try again.");
@@ -170,7 +180,7 @@ function deleteConversation(conversationId){
 		},
 		error: function(e) {
 			console.log(e);
-			alertModal("Sorry, there was a problem deleting the conversation. Please try again.");
+			alertModal("Sorry there was a problem saving the conversation. Please try again.");
 		}
 	});
 

@@ -171,7 +171,7 @@ function alertModal(message){
   });
 }
 
-function statusNotification(message, error = false){
+function statusNotification(message, error = false, callback){
   $(".status-notify").remove();
   var iconDiv = '<i class="material-icons">&#xE5CA;</i>';
   // Status Icon
@@ -194,6 +194,8 @@ function statusNotification(message, error = false){
     $statusElem.addClass("error");
   }
 
+  callback();
+
   setTimeout(function(){
     $statusElem.addClass("remove");
     $statusElem.one('webkitAnimationEnd oanimationend msAnimationEnd animationend',
@@ -201,5 +203,5 @@ function statusNotification(message, error = false){
         $statusElem.remove();
       }
     );
-  }, 5000);
+  }, 2500);
 }

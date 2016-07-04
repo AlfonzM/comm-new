@@ -496,28 +496,29 @@ input[type="number"]{
 }
 
 .status-notify{
-  @include gradient-up(white);
+  @extend .center-block-elem;
   width: 100%;
   height: $input-height;
-  color: $theme-color;
+  color: white;
+  background-color: $theme-color;
   position: fixed;
   bottom: 0;
   left: 0;
 
-  -webkit-animation: POP-UP .5s forwards linear;
-     -moz-animation: POP-UP .5s forwards linear;
-       -o-animation: POP-UP .5s forwards linear;
-          animation: POP-UP .5s forwards linear;
+  -webkit-animation: POP-UP .2s forwards linear;
+     -moz-animation: POP-UP .2s forwards linear;
+       -o-animation: POP-UP .2s forwards linear;
+          animation: POP-UP .2s forwards linear;
 
   &.error{
-    color: tomato;
+    background-color: tomato;
   }
 
   &.remove{
-    -webkit-animation: POP-DOWN .5s forwards linear;
-       -moz-animation: POP-DOWN .5s forwards linear;
-         -o-animation: POP-DOWN .5s forwards linear;
-            animation: POP-DOWN .5s forwards linear;
+    -webkit-animation: POP-DOWN .2s forwards linear;
+       -moz-animation: POP-DOWN .2s forwards linear;
+         -o-animation: POP-DOWN .2s forwards linear;
+            animation: POP-DOWN .2s forwards linear;
   }
 
   & > i{

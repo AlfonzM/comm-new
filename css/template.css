@@ -19,7 +19,7 @@
   margin: 0;
   list-style: none; }
 
-.center-block-elem, input[type="radio"] + label > span, input[type="checkbox"] + label > span, .drop-select > li, .button-wrapper, .button, .button-icon, .tool-tip:not(:empty), .status-notify > span {
+.center-block-elem, input[type="radio"] + label > span, input[type="checkbox"] + label > span, .drop-select > li, .button-wrapper, .button, .button-icon, .tool-tip:not(:empty), .status-notify, .status-notify > span {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
@@ -423,30 +423,24 @@ input[type="number"] {
     width: 100%; }
 
 .status-notify {
-  background: white;
-  background: -moz-linear-gradient(bottom, white 0%, rgba(255, 255, 255, 0) 85%);
-  background: -webkit-gradient(left bottom, left top, color-stop(0%, white), color-stop(85%, rgba(255, 255, 255, 0)));
-  background: -webkit-linear-gradient(bottom, white 0%, rgba(255, 255, 255, 0) 85%);
-  background: -o-linear-gradient(bottom, white 0%, rgba(255, 255, 255, 0) 85%);
-  background: -ms-linear-gradient(bottom, white 0%, rgba(255, 255, 255, 0) 85%);
-  background: linear-gradient(to top, white 0%, rgba(255, 255, 255, 0) 85%);
   width: 100%;
   height: 35px;
-  color: #4078c0;
+  color: white;
+  background-color: #4078c0;
   position: fixed;
   bottom: 0;
   left: 0;
-  -webkit-animation: POP-UP .5s forwards linear;
-  -moz-animation: POP-UP .5s forwards linear;
-  -o-animation: POP-UP .5s forwards linear;
-  animation: POP-UP .5s forwards linear; }
+  -webkit-animation: POP-UP .2s forwards linear;
+  -moz-animation: POP-UP .2s forwards linear;
+  -o-animation: POP-UP .2s forwards linear;
+  animation: POP-UP .2s forwards linear; }
   .status-notify.error {
-    color: tomato; }
+    background-color: tomato; }
   .status-notify.remove {
-    -webkit-animation: POP-DOWN .5s forwards linear;
-    -moz-animation: POP-DOWN .5s forwards linear;
-    -o-animation: POP-DOWN .5s forwards linear;
-    animation: POP-DOWN .5s forwards linear; }
+    -webkit-animation: POP-DOWN .2s forwards linear;
+    -moz-animation: POP-DOWN .2s forwards linear;
+    -o-animation: POP-DOWN .2s forwards linear;
+    animation: POP-DOWN .2s forwards linear; }
   .status-notify > i {
     float: right; }
   .status-notify > span {
