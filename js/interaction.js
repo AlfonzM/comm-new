@@ -172,11 +172,9 @@ function viewConversation(id, conversationObj){
   $conversationTrigger.find("input[name='select-option']").unbind().on("change", function(){
     // If trigger == 4, or "Talk", disable first pepper question
     if($(this).val() == 4){
-    $('#conversation-form-header').addClass('hide');
-      // $('#pepper-question-container').hide();
+      $('#conversation-form-header').addClass('hide');
     } else {
-    $('#conversation-form-header').removeClass('hide');
-      // $('#pepper-question-container').show();
+      $('#conversation-form-header').removeClass('hide');
     }
     conversationObj.trigger = $(this).val();
   });
@@ -235,7 +233,6 @@ function viewConversation(id, conversationObj){
 
   // Show/Hide first pepper question field if trigger == 4 or "Talk"
   if(conversationObj.trigger == 4){
-    // $('#pepper-question-container').hide();
     $('#conversation-form-header').addClass('hide');
   }
 }

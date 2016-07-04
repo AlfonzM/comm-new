@@ -119,6 +119,7 @@ function saveConversation(conversation){
 			});
 		},
 		error: function(e) {
+			$("#save-conversation").removeClass("is-loading");
 			alertModal("Sorry, there was a problem saving the conversation. Please try again.");
 		}
 	});
@@ -162,6 +163,7 @@ function updateConversation(conversation){
 			});
 		},
 		error: function(e) {
+			$("#save-conversation").removeClass("is-loading");
 			alertModal("Sorry, there was a problem saving the conversation. Please try again.");
 		}
 	});
@@ -179,6 +181,7 @@ function deleteConversation(conversationId){
 			console.log("delete successful");
 		},
 		error: function(e) {
+			$("#save-conversation").removeClass("is-loading");
 			alertModal("Sorry there was a problem saving the conversation. Please try again.");
 		}
 	});
