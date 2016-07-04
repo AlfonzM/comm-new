@@ -56,7 +56,7 @@ function clickBubbleOption(){
 
 function navigateButton(){
   $(".nav-button").unbind().on("click", function(){
-    // console.log(JSON.stringify(currentConversation)+"\n====================\n "+JSON.stringify(conversationCollection[currentConversation.localID]));
+    console.log(JSON.stringify(currentConversation)+"\n====================\n "+JSON.stringify(conversationCollection[currentConversation.localID]));
     var $button = $(this);
     if(JSON.stringify(currentConversation) === JSON.stringify(conversationCollection[currentConversation.localID])){
       pageID = $button.attr("for");
@@ -98,7 +98,7 @@ function addConversation(conversation){
     '</div>'+
     '</div>'+
     '<div class="trigger-update">'+
-    '<span class="trigger">Detect Human</span>'+
+    '<span class="trigger">' + conversation_Obj.triggerName() + '</span>'+
     '</div>'+
     '<i id="remove-button" class="list-tool icon material-icons">&#xE872;</i>'+
     '</li>'
@@ -422,7 +422,6 @@ function appendUserResponse($listContainer, responseObj, userResponse){
   var $removeUserResponse = $userResponseElem.find(".delete");
 
   $userResponseText.on("change", function(){
-    console.log("MODIFYING THIS USER RESPONSE: " + JSON.stringify(userResponse));
     userResponse.text = $(this).val();
   });
 
@@ -432,7 +431,6 @@ function appendUserResponse($listContainer, responseObj, userResponse){
     var message = "Are you sure you want to delete this user response? You cannot undo this action.";
     confirmModal(message, function(){
       userResponse.dis = 0;
-      console.log("MODIFYING THIS USER RESPONSE: " + JSON.stringify(userResponse));
       $removeUserResponse.closest(".user-response").remove();
     });
   });

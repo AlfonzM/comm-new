@@ -2,7 +2,8 @@ var conversationCollection = [];
 var dialogueResponseCount = 0;
 
 function Conversation(props = []){
-      this.localID = props.localID || conversationCollection.length;
+      this.localID = (props.localID != undefined) ? props.localID : conversationCollection.length;
+
   this.pepperTalks = [];
 
            this.id = props.conversation_id || -1;
@@ -19,6 +20,16 @@ function Conversation(props = []){
    dialogue.localID = this.pepperTalks.length;
    this.pepperTalks.push(dialogue);
    return dialogue;
+ }
+
+ this.triggerName = function(){
+  var triggers = [];
+  triggers[1] = "Detect Human";
+  triggers[2] = "Touch Hand";
+  triggers[3] = "Touch Head";
+  triggers[4] = "Talk";
+
+  return triggers[this.trigger];
  }
 
  if(props.length == 0 || !props.pepperTalks){

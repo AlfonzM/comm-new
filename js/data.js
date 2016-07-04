@@ -80,7 +80,7 @@ function addPepperTalk(currentPepperTalk, newConvo){
 
 function saveConversation(conversation){
 	// console.log("THE COLLECTION BEFORE SAVE: " + JSON.stringify(conversationCollection));
-	console.log("SAVE THIS: " + JSON.stringify(conversation));
+	// console.log("SAVE THIS: " + JSON.stringify(conversation));
 	// console.log("SAVE THIS JSON: " + JSON.stringify(conversation.toJson()));
 	$("#save-conversation").addClass("is-loading");
 
@@ -94,7 +94,7 @@ function saveConversation(conversation){
 		processData: false,
 		timeout: 60000,
 		success: function(data) {
-			console.log("data after ajax: " + JSON.stringify(data));
+			// console.log("data after ajax: " + JSON.stringify(data));
 
 			data.localID = conversation.localID;
 
@@ -111,8 +111,8 @@ function saveConversation(conversation){
 			viewConversation(conversationObjectFromJson.localID, conversationObjectFromJson);
 			viewPepperTalk(conversationObjectFromJson, conversationObjectFromJson.pepperTalks[gotoThisDialogue]);
 
-			console.log("current conversation after save:");
-			console.log(JSON.stringify(currentConversation));
+			// console.log("current conversation after save:");
+			// console.log(JSON.stringify(currentConversation));
 
 			statusNotification("Saved successfully...", null, function(){
 				$("#save-conversation").removeClass("is-loading");
@@ -125,9 +125,9 @@ function saveConversation(conversation){
 }
 
 function updateConversation(conversation){
-	console.log('update');
-	console.log('to update ' + JSON.stringify(conversation));
-	console.log('to update jsoned ' + JSON.stringify(conversation.toJson()));
+	// console.log('update');
+	// console.log('to update ' + JSON.stringify(conversation));
+	// console.log('to update jsoned ' + JSON.stringify(conversation.toJson()));
 
 	$("#save-conversation").addClass("is-loading");
 
@@ -140,7 +140,7 @@ function updateConversation(conversation){
 		processData: false,
 		timeout: 60000,
 		success: function(data) {
-			console.log("data after ajax " + JSON.stringify(data));
+			// console.log("data after ajax " + JSON.stringify(data));
 
 			data.localID = conversation.localID;
 			var conversationObjectFromJson = createConversationObjectFromJson(data);
@@ -150,8 +150,8 @@ function updateConversation(conversation){
 
 			var gotoThisDialogue = currentDialogue;
 
-			console.log("current conversation after update:");
-			console.log(JSON.stringify(conversationObjectFromJson));
+			// console.log("current conversation after update:");
+			// console.log(JSON.stringify(conversationObjectFromJson));
 
 			viewConversation(conversationObjectFromJson.localID, conversationObjectFromJson);
 			viewPepperTalk(conversationObjectFromJson, conversationObjectFromJson.pepperTalks[gotoThisDialogue]);
@@ -179,7 +179,6 @@ function deleteConversation(conversationId){
 			console.log("delete successful");
 		},
 		error: function(e) {
-			console.log(e);
 			alertModal("Sorry there was a problem saving the conversation. Please try again.");
 		}
 	});
