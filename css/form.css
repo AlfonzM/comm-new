@@ -457,6 +457,11 @@ body.modal-open {
       background-color: #f3f3f3;
       border-color: gray; }
 
+#conversation-form-header.hide {
+  border: none !important; }
+  #conversation-form-header.hide #pepper-question-container {
+    display: none; }
+
 @-webkit-keyframes FADE-SLIDE-IN {
   from {
     opacity: 0;

@@ -25,9 +25,10 @@ function Conversation(props = []){
  this.triggerName = function(){
   var triggers = [];
   triggers[1] = "Detect Human";
-  triggers[2] = "Touch Hand";
+  triggers[2] = "Touch left hand";
   triggers[3] = "Touch Head";
   triggers[4] = "Talk";
+  triggers[5] = "Touch right hand";
 
   return triggers[this.trigger];
  }

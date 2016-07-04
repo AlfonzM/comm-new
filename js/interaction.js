@@ -170,6 +170,14 @@ function viewConversation(id, conversationObj){
     $('#conversation-title').text($(this).val());
   });
   $conversationTrigger.find("input[name='select-option']").unbind().on("change", function(){
+    // If trigger == 4, or "Talk", disable first pepper question
+    if($(this).val() == 4){
+    $('#conversation-form-header').addClass('hide');
+      // $('#pepper-question-container').hide();
+    } else {
+    $('#conversation-form-header').removeClass('hide');
+      // $('#pepper-question-container').show();
+    }
     conversationObj.trigger = $(this).val();
   });
   $conversationPriority.unbind().on("change", function(){
@@ -224,6 +232,12 @@ function viewConversation(id, conversationObj){
 
   // Change conversation title
   $conversationNameField.val(conversationObj.title).change();
+
+  // Show/Hide first pepper question field if trigger == 4 or "Talk"
+  if(conversationObj.trigger == 4){
+    // $('#pepper-question-container').hide();
+    $('#conversation-form-header').addClass('hide');
+  }
 }
 
 function clearConversation(){
@@ -396,8 +410,8 @@ function addResponseGroup(conversationObj, response){
 
 function appendUserResponse($listContainer, responseObj, userResponse){
   var userResponseID = "user-response-"+ currentDialogue +"-"+
-    responseObj.localID +"-"+
-    userResponse.localID;
+  responseObj.localID +"-"+
+  userResponse.localID;
 
   $listContainer.prepend(
     '<li id="'+ userResponseID +'" class="user-response">'+

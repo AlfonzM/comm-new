@@ -562,6 +562,16 @@ body.modal-open{
   }
 }
 
+#conversation-form-header{
+  &.hide{
+    border: none !important;
+
+    & #pepper-question-container{
+      display: none;
+    }
+  }
+}
+
 // Animations
 @-webkit-keyframes FADE-SLIDE-IN {
     from {
