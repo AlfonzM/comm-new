@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+  
 });
 
 function testData(){
@@ -169,4 +169,37 @@ function alertModal(message){
     $modalElem.remove();
     $("body").removeClass("modal-open");
   });
+}
+
+function statusNotification(message, error = false){
+  $(".status-notify").remove();
+  var iconDiv = '<i class="material-icons">&#xE5CA;</i>';
+  // Status Icon
+  if(error){
+    iconDiv = '<i class="material-icons">&#xE000;</i>';
+  }
+
+  $("body").append(
+    '<div class="status-notify">'+
+      '<span>'+
+        iconDiv +
+        String(message) +
+      '</span>'+
+    '</div>'
+  );
+
+  var $statusElem = $(".status-notify");
+
+  if(error){
+    $statusElem.addClass("error");
+  }
+
+  setTimeout(function(){
+    $statusElem.addClass("remove");
+    $statusElem.one('webkitAnimationEnd oanimationend msAnimationEnd animationend',
+      function(e) {
+        $statusElem.remove();
+      }
+    );
+  }, 5000);
 }

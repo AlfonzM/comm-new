@@ -123,7 +123,7 @@ input[type="radio"], input[type="checkbox"]{
   }
 }
 
-input[type="text"], input[type="number"]{
+input[type="text"], input[type="number"], input[name='input-fields']{
   @extend .border-box;
   max-width: $input-width;
   height: $input-height;
@@ -493,4 +493,76 @@ input[type="number"]{
       width: 100%;
     }
   }
+}
+
+.status-notify{
+  @include gradient-up(white);
+  width: 100%;
+  height: $input-height;
+  color: $theme-color;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  -webkit-animation: POP-UP .5s forwards linear;
+     -moz-animation: POP-UP .5s forwards linear;
+       -o-animation: POP-UP .5s forwards linear;
+          animation: POP-UP .5s forwards linear;
+
+  &.error{
+    color: tomato;
+  }
+
+  &.remove{
+    -webkit-animation: POP-DOWN .5s forwards linear;
+       -moz-animation: POP-DOWN .5s forwards linear;
+         -o-animation: POP-DOWN .5s forwards linear;
+            animation: POP-DOWN .5s forwards linear;
+  }
+
+  & > i{
+    float: right;
+  }
+
+  & > span{
+    @extend .center-block-elem;
+    @extend .border-box;
+    padding: 10px;
+    height: 100%;
+    float: right;
+  }
+}
+
+@-webkit-keyframes POP-UP{
+  from   { transform: translateY($input-height); }
+  to     { transform: translateY(0px); }
+}
+@-moz-keyframes POP-UP{
+  from   { transform: translateY($input-height); }
+  to     { transform: translateY(0px); }
+}
+@-o-keyframes POP-UP{
+  from   { transform: translateY($input-height); }
+  to     { transform: translateY(0px); }
+}
+@keyframes POP-UP{
+  from   { transform: translateY($input-height); }
+  to     { transform: translateY(0px); }
+}
+
+@-webkit-keyframes POP-DOWN{
+  from   { transform: translateY(0px); }
+  to     { transform: translateY($input-height); }
+}
+@-moz-keyframes POP-DOWN{
+  from   { transform: translateY(0px); }
+  to     { transform: translateY($input-height); }
+}
+@-o-keyframes POP-DOWN{
+  from   { transform: translateY(0px); }
+  to     { transform: translateY($input-height); }
+}
+@keyframes POP-DOWN{
+  from   { transform: translateY(0px); }
+  to     { transform: translateY($input-height); }
 }

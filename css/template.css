@@ -19,7 +19,7 @@
   margin: 0;
   list-style: none; }
 
-.center-block-elem, input[type="radio"] + label > span, input[type="checkbox"] + label > span, .drop-select > li, .button-wrapper, .button, .button-icon, .tool-tip:not(:empty) {
+.center-block-elem, input[type="radio"] + label > span, input[type="checkbox"] + label > span, .drop-select > li, .button-wrapper, .button, .button-icon, .tool-tip:not(:empty), .status-notify > span {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
@@ -35,7 +35,7 @@
   -webkit-justify-content: center !important;
   justify-content: center !important; }
 
-.border-box, input[type="radio"] + label > .checkbox:before, input[type="checkbox"] + label > .checkbox:before, input[type="radio"] + label > .checkbox:after, input[type="checkbox"] + label > .checkbox:after, input[type="radio"] + label > span, input[type="checkbox"] + label > span, input[type="text"], input[type="number"], .input-label, .drop-select > li, .drop-select > li span, .button, .button-icon, .tool-tip:not(:empty) {
+.border-box, input[type="radio"] + label > .checkbox:before, input[type="checkbox"] + label > .checkbox:before, input[type="radio"] + label > .checkbox:after, input[type="checkbox"] + label > .checkbox:after, input[type="radio"] + label > span, input[type="checkbox"] + label > span, input[type="text"], input[type="number"], input[name='input-fields'], .input-label, .drop-select > li, .drop-select > li span, .button, .button-icon, .tool-tip:not(:empty), .status-notify > span {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
@@ -161,7 +161,7 @@ input[type="radio"], input[type="checkbox"] {
   input[type="radio"]:checked + label > span.switch-label:before, input[type="checkbox"]:checked + label > span.switch-label:before {
     content: "ON"; }
 
-input[type="text"], input[type="number"] {
+input[type="text"], input[type="number"], input[name='input-fields'] {
   max-width: 500px;
   height: 35px;
   padding: 5px;
@@ -177,7 +177,7 @@ input[type="text"], input[type="number"] {
   -moz-transition: color .2s linear, background-color .2s linear, border .2s linear;
   -o-transition: color .2s linear, background-color .2s linear, border .2s linear;
   transition: color .2s linear, background-color .2s linear, border .2s linear; }
-  input[type="text"]:focus, input[type="number"]:focus {
+  input[type="text"]:focus, input[type="number"]:focus, input[name='input-fields']:focus {
     color: black;
     background-color: white;
     border-color: #4078c0; }
@@ -421,5 +421,78 @@ input[type="number"] {
       right: 5px; }
   .tool-tip:not(:empty).inherit-width {
     width: 100%; }
+
+.status-notify {
+  background: white;
+  background: -moz-linear-gradient(bottom, white 0%, rgba(255, 255, 255, 0) 85%);
+  background: -webkit-gradient(left bottom, left top, color-stop(0%, white), color-stop(85%, rgba(255, 255, 255, 0)));
+  background: -webkit-linear-gradient(bottom, white 0%, rgba(255, 255, 255, 0) 85%);
+  background: -o-linear-gradient(bottom, white 0%, rgba(255, 255, 255, 0) 85%);
+  background: -ms-linear-gradient(bottom, white 0%, rgba(255, 255, 255, 0) 85%);
+  background: linear-gradient(to top, white 0%, rgba(255, 255, 255, 0) 85%);
+  width: 100%;
+  height: 35px;
+  color: #4078c0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  -webkit-animation: POP-UP .5s forwards linear;
+  -moz-animation: POP-UP .5s forwards linear;
+  -o-animation: POP-UP .5s forwards linear;
+  animation: POP-UP .5s forwards linear; }
+  .status-notify.error {
+    color: tomato; }
+  .status-notify.remove {
+    -webkit-animation: POP-DOWN .5s forwards linear;
+    -moz-animation: POP-DOWN .5s forwards linear;
+    -o-animation: POP-DOWN .5s forwards linear;
+    animation: POP-DOWN .5s forwards linear; }
+  .status-notify > i {
+    float: right; }
+  .status-notify > span {
+    padding: 10px;
+    height: 100%;
+    float: right; }
+
+@-webkit-keyframes POP-UP {
+  from {
+    transform: translateY(35px); }
+  to {
+    transform: translateY(0px); } }
+@-moz-keyframes POP-UP {
+  from {
+    transform: translateY(35px); }
+  to {
+    transform: translateY(0px); } }
+@-o-keyframes POP-UP {
+  from {
+    transform: translateY(35px); }
+  to {
+    transform: translateY(0px); } }
+@keyframes POP-UP {
+  from {
+    transform: translateY(35px); }
+  to {
+    transform: translateY(0px); } }
+@-webkit-keyframes POP-DOWN {
+  from {
+    transform: translateY(0px); }
+  to {
+    transform: translateY(35px); } }
+@-moz-keyframes POP-DOWN {
+  from {
+    transform: translateY(0px); }
+  to {
+    transform: translateY(35px); } }
+@-o-keyframes POP-DOWN {
+  from {
+    transform: translateY(0px); }
+  to {
+    transform: translateY(35px); } }
+@keyframes POP-DOWN {
+  from {
+    transform: translateY(0px); }
+  to {
+    transform: translateY(35px); } }
 
 /*# sourceMappingURL=template.css.map */
