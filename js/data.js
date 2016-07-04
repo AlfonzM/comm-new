@@ -37,9 +37,6 @@ function createConversationObjectFromJson(conversationProps){
 		currentPepperTalk = addPepperTalk(currentPepperTalk, newConvo);
 	}
 
-	// console.log(newConvo);
-	// console.log(JSON.stringify(newConvo));
-
 	return newConvo;
 }
 
@@ -79,9 +76,6 @@ function addPepperTalk(currentPepperTalk, newConvo){
 }
 
 function saveConversation(conversation){
-	// console.log("THE COLLECTION BEFORE SAVE: " + JSON.stringify(conversationCollection));
-	// console.log("SAVE THIS: " + JSON.stringify(conversation));
-	// console.log("SAVE THIS JSON: " + JSON.stringify(conversation.toJson()));
 	$("#save-conversation").addClass("is-loading");
 
 	// return;
@@ -94,14 +88,10 @@ function saveConversation(conversation){
 		processData: false,
 		timeout: 60000,
 		success: function(data) {
-			// console.log("data after ajax: " + JSON.stringify(data));
-
 			data.localID = conversation.localID;
 
 			var conversationObjectFromJson = createConversationObjectFromJson(data);
 
-			// console.log(JSON.stringify(c));
-			
 			// Update temp to conversation collection
 			conversationCollection[conversation.localID] = conversationObjectFromJson;
 			currentConversation = Clone(conversationObjectFromJson);
@@ -110,9 +100,6 @@ function saveConversation(conversation){
 
 			viewConversation(conversationObjectFromJson.localID, conversationObjectFromJson);
 			viewPepperTalk(conversationObjectFromJson, conversationObjectFromJson.pepperTalks[gotoThisDialogue]);
-
-			// console.log("current conversation after save:");
-			// console.log(JSON.stringify(currentConversation));
 
 			statusNotification("Saved successfully...", null, function(){
 				$("#save-conversation").removeClass("is-loading");
@@ -126,10 +113,6 @@ function saveConversation(conversation){
 }
 
 function updateConversation(conversation){
-	// console.log('update');
-	// console.log('to update ' + JSON.stringify(conversation));
-	// console.log('to update jsoned ' + JSON.stringify(conversation.toJson()));
-
 	$("#save-conversation").addClass("is-loading");
 
 	$.ajax({
@@ -141,8 +124,6 @@ function updateConversation(conversation){
 		processData: false,
 		timeout: 60000,
 		success: function(data) {
-			// console.log("data after ajax " + JSON.stringify(data));
-
 			data.localID = conversation.localID;
 			var conversationObjectFromJson = createConversationObjectFromJson(data);
 
@@ -150,9 +131,6 @@ function updateConversation(conversation){
 			currentConversation = Clone(conversationObjectFromJson);
 
 			var gotoThisDialogue = currentDialogue;
-
-			// console.log("current conversation after update:");
-			// console.log(JSON.stringify(conversationObjectFromJson));
 
 			viewConversation(conversationObjectFromJson.localID, conversationObjectFromJson);
 			viewPepperTalk(conversationObjectFromJson, conversationObjectFromJson.pepperTalks[gotoThisDialogue]);
@@ -178,7 +156,6 @@ function deleteConversation(conversationId){
 		processData: false,
 		timeout: 60000,
 		success: function(data) {
-			console.log("delete successful");
 		},
 		error: function(e) {
 			$("#save-conversation").removeClass("is-loading");

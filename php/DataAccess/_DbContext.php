@@ -11,8 +11,8 @@ class DbContext{
 
 	public function Connect(){
 		try{
-			$host = 'localhost'; $username = 'root'; $password = 'root';
-			// $host = '139.162.25.179'; $username = 'alfonz'; $password = '22cput';
+			// $host = 'localhost'; $username = 'root'; $password = 'root';
+			$host = '139.162.25.179'; $username = 'alfonz'; $password = '22cput';
 
 			$this->account_db = new PDO("mysql:host=$host;dbname=analysis_db", 
 				$username, $password, 

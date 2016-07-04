@@ -63,7 +63,6 @@ function clickBubbleOption(){
 
 function navigateButton(){
   $(".nav-button").unbind().on("click", function(){
-    console.log(JSON.stringify(currentConversation)+"\n====================\n "+JSON.stringify(conversationCollection[currentConversation.localID]));
     var $button = $(this);
     if(JSON.stringify(currentConversation) === JSON.stringify(conversationCollection[currentConversation.localID])){
       pageID = $button.attr("for");
@@ -222,11 +221,6 @@ function viewConversation(id, conversationObj){
     conversationListElem.find(".trigger").text($("#option").val());
     conversationObj.priority = $conversationPriority.val();
     conversationListElem.find(".priority-number").text($conversationPriority.val());
-
-    // console.log("TO SAVE: " + JSON.stringify(conversationObj));
-
-    console.log("convo before save/update:");
-    console.log(currentConversation);
 
     if(currentConversation.id <= 0){
       saveConversation(conversationObj);
@@ -397,8 +391,6 @@ function addResponseGroup(conversationObj, response){
   var $boxOutput = $responseGroupElem.find("input[name='box-output']");
   $boxOutput.on("change", function(){
     response.output = ($(this).val());
-
-    console.log(response);
 
     if(response.child > -1){
       conversationObj.pepperTalks[response.child].output = response.output;

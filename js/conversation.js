@@ -16,7 +16,6 @@ function testData(){
 function displayFamily(dialogue){
   for(i = 0; i < dialogue.length; i++){
     var d = dialogue[i];
-    console.log(d.text +"  "+d.localID);
   }
 }
 
@@ -55,8 +54,6 @@ function viewDialogueReply(conversation, response){
 function displayBreadcrumbs(conversation){
   var $questionBreadcrumbList = $("#question-breadcrumb-list");
   $questionBreadcrumbList.empty();
-
-  // console.log(conversation.pepperTalks[currentDialogue]);
 
   // Display Breadcrumbs
   for(parent = conversation.pepperTalks[currentDialogue].localID; parent > -1;
