@@ -81,6 +81,26 @@ ul {
   .form-input:placeholder-shown {
     color: #d9d9d9; }
 
+@-webkit-keyframes ROTATE {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+@-moz-keyframes ROTATE {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+@-o-keyframes ROTATE {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+@keyframes ROTATE {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
 html, body {
   width: 100%;
   height: 100%;
@@ -244,26 +264,5 @@ input[name='input-fields'] {
     -moz-animation: ROTATE .5s infinite linear;
     -o-animation: ROTATE .5s infinite linear;
     animation: ROTATE .5s infinite linear; }
-
-@-webkit-keyframes ROTATE {
-  from {
-    transform: rotate(0deg); }
-  to {
-    transform: rotate(360deg); } }
-@-moz-keyframes ROTATE {
-  from {
-    transform: rotate(0deg); }
-  to {
-    transform: rotate(360deg); } }
-@-o-keyframes ROTATE {
-  from {
-    transform: rotate(0deg); }
-  to {
-    transform: rotate(360deg); } }
-@keyframes ROTATE {
-  from {
-    transform: rotate(0deg); }
-  to {
-    transform: rotate(360deg); } }
 
 /*# sourceMappingURL=signin.css.map */

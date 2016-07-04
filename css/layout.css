@@ -81,6 +81,26 @@ ul {
   .form-input:placeholder-shown {
     color: #d9d9d9; }
 
+@-webkit-keyframes ROTATE {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+@-moz-keyframes ROTATE {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+@-o-keyframes ROTATE {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+@keyframes ROTATE {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
 .header {
   background-color: #f3f3f3;
   z-index: 1; }

@@ -1,6 +1,28 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700,100);
 
 // MIXINS
+@mixin loading-icon($loadingSize, $color){
+  &:before{
+    @extend .border-box;
+    content: "";
+    width: $loadingSize;
+    height: $loadingSize;
+    border: solid 5px $color;
+    border-left-color: transparent;
+    border-radius: 999px;
+    position: relative;
+    position: absolute;
+    top: calc(50% - (#{$loadingSize} / 2));
+    left: calc(50% - (#{$loadingSize} / 2));
+    transform-origin: center;
+
+    -webkit-animation: ROTATE .5s infinite linear;
+       -moz-animation: ROTATE .5s infinite linear;
+         -o-animation: ROTATE .5s infinite linear;
+            animation: ROTATE .5s infinite linear;
+  }
+}
+
 @mixin gradient-down($color){
   background: $color;
   background: -moz-linear-gradient(top, $color 0%, transparentize($color, 1) 85%);
@@ -267,4 +289,21 @@ ul{
      -moz-transition: color .2s, border-color .2s ease-in;
        -o-transition: color .2s, border-color .2s ease-in;
           transition: color .2s, border-color .2s ease-in;
+}
+
+@-webkit-keyframes ROTATE{
+  from   { transform: rotate(0deg); }
+  to     { transform: rotate(360deg); }
+}
+@-moz-keyframes ROTATE{
+  from   { transform: rotate(0deg); }
+  to     { transform: rotate(360deg); }
+}
+@-o-keyframes ROTATE{
+  from   { transform: rotate(0deg); }
+  to     { transform: rotate(360deg); }
+}
+@keyframes ROTATE{
+  from   { transform: rotate(0deg); }
+  to     { transform: rotate(360deg); }
 }

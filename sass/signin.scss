@@ -1,28 +1,5 @@
 @import "utilities/variables";
 
-@mixin loading-icon($loadingSize){
-  &:before{
-    @extend .border-box;
-    content: "";
-    width: $loadingSize;
-    height: $loadingSize;
-    border: solid 5px white;
-    border-left-color: transparent;
-    border-radius: 999px;
-    position: relative;
-    position: absolute;
-    top: calc(50% - (#{$loadingSize} / 2));
-    left: calc(50% - (#{$loadingSize} / 2));
-    transform-origin: center;
-
-    -webkit-animation: ROTATE .5s infinite linear;
-       -moz-animation: ROTATE .5s infinite linear;
-         -o-animation: ROTATE .5s infinite linear;
-            animation: ROTATE .5s infinite linear;
-  }
-}
-
-
 $default-height: 45px;
 
 html, body{
@@ -237,23 +214,6 @@ input[name='input-fields']{
 }
 
 .loading{
-  @include loading-icon(25px);
+  @include loading-icon(25px, white);
   position: relative;
-}
-
-@-webkit-keyframes ROTATE{
-  from   { transform: rotate(0deg); }
-  to     { transform: rotate(360deg); }
-}
-@-moz-keyframes ROTATE{
-  from   { transform: rotate(0deg); }
-  to     { transform: rotate(360deg); }
-}
-@-o-keyframes ROTATE{
-  from   { transform: rotate(0deg); }
-  to     { transform: rotate(360deg); }
-}
-@keyframes ROTATE{
-  from   { transform: rotate(0deg); }
-  to     { transform: rotate(360deg); }
 }
