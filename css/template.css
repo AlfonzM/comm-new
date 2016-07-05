@@ -234,7 +234,7 @@ input[type="number"] {
     color: gray;
     background-color: #f3f3f3;
     border-color: #d9d9d9; }
-  .option-box > input[type="number"] {
+  .option-box > input[name="select-option"] {
     display: none; }
   .option-box > .input-label:before {
     content: "";

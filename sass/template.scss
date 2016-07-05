@@ -192,7 +192,7 @@ input[type="number"]{
     border-color: $border-color;
   }
 
-  & > input[type="number"]{
+  & > input[name="select-option"] {
     display: none;
   }
 

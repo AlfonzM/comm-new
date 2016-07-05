@@ -55,10 +55,6 @@ class Conversation{
 		$pepperTalk = $this->pepperTalks[0];
 		$this->conversation_dialogFile = "";
 
-		// if($this->conversation_trigger != 4 && empty($pepperTalk->pepperTalk_text)){
-		// 	return;
-		// }
-
 		if($this->conversation_trigger == 4){
 			$pepperTalk->pepperTalk_text = "";
 		}

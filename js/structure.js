@@ -10,8 +10,9 @@ function Conversation(props = []){
         this.title = props.conversation_title || "Untitled "+this.localID;
       this.trigger = props.conversation_trigger || "1";
      this.priority = props.conversation_priority || "1";
-        this.sharp = props.conversation_sharp || 110;
-        this.speed = props.conversation_speed || 130;
+        this.sharp = props.conversation_sharp || 100;
+        this.speed = props.conversation_speed || 100;
+     this.language = props.conversation_language || "jpj";
        this.client = props.conversation_client || -1;
        this.dis = props.conversation_dis || 1;
 
@@ -52,7 +53,7 @@ function Conversation(props = []){
     "conversation_sharp": this.sharp,
     "conversation_speed": this.speed,
     "conversation_dialogFile": "",
-    "conversation_language": "",
+    "conversation_language": this.language,
     "conversation_client": this.client,
     "conversation_dis": this.dis,
     "pepperTalks": jsonPepperTalks

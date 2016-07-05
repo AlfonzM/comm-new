@@ -124,6 +124,7 @@ function updateConversation(conversation){
 		processData: false,
 		timeout: 60000,
 		success: function(data) {
+			console.log(data);
 			data.localID = conversation.localID;
 			var conversationObjectFromJson = createConversationObjectFromJson(data);
 
@@ -163,4 +164,39 @@ function deleteConversation(conversationId){
 		}
 	});
 
+}
+
+function saveSetting(setting){
+	var data = {'setting_id':1, 'setting_choose':setting, 'setting_dis':1};
+	$.ajax({
+		url: 'php/settings',
+		type: 'PUT',
+		data: JSON.stringify(data),
+		dataType: 'json',
+		contentType: 'application/json',
+		processData: false,
+		timeout: 60000,
+		success: function(data) {
+		},
+		error: function(e) {
+			console.log(e);
+			alertModal("Sorry, there was a problem saving the settings. Please try again.");
+		}
+	});
+}
+
+function getSetting(){
+	$.ajax({
+		url: 'php/settings',
+		type: 'GET',
+		dataType: 'json',
+		timeout: 60000,
+		success: function(data) {
+			var boxSetting = data[0].setting_choose;
+			viewAppSettings(boxSetting);
+		},
+		error: function(e) {
+			alertModal("Sorry, there was a problem getting the settings from the database. Please try again.");
+		}
+	});
 }

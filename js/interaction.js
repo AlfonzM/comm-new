@@ -19,7 +19,8 @@ $(document).ready(function() {
   });
 
   $("#view-app-settings").on("click", function(){
-    viewAppSettings();
+    getSetting();
+    // viewAppSettings();
   });
 
 });
@@ -30,8 +31,7 @@ function optionBox(){
     $selectInputText = $optionBox.find("input[name='option-input']");
     $selectInputValue = $optionBox.find("input[name='select-option']");
     newText = $(this).find("span").text();
-    newVal = $(this).find("input[type='number']").val();
-
+    newVal = $(this).find("input[name='option-val']").val();
     $selectInputText.val(newText);
     $selectInputValue.val(newVal).change();
   });
@@ -150,12 +150,16 @@ function viewConversation(id, conversationObj){
   // Conversation Settings
   var $conversationNameField = $( "input[name='conversation-name']" );
   var $conversationTrigger = $( "#trigger-option-container" );
+  var $conversationLanguage = $( "#language-option-container" );
   var $conversationSharp = $( "input[name='sharp-number']" );
   var $conversationPriority = $( "input[name='priority-number']" );
   var $conversationSpeed = $( "input[name='speed-number']" );
 
   $conversationNameField.val(conversationObj.title).change();
-  $conversationTrigger.find(".drop-select > li").eq(conversationObj.trigger - 1).click();
+  $conversationTrigger.find("input[name='option-val'][value='"+conversationObj.trigger+"']").closest("li").click();
+  $conversationLanguage.find("input[name='option-val'][value='"+conversationObj.language+"']").closest("li").click();
+  // $conversationTrigger.find(".drop-select > li").eq(conversationObj.trigger - 1).click();
+  // $conversationLanguage.find(".drop-select > li").eq(conversationObj.language - 1).click();
   $conversationPriority.val(conversationObj.priority);
   $conversationSharp.val(conversationObj.sharp);
   $conversationSpeed.val(conversationObj.speed);
@@ -184,6 +188,7 @@ function viewConversation(id, conversationObj){
     $('#conversation-title').text($(this).val());
   });
   $conversationTrigger.find("input[name='select-option']").unbind().on("change", function(){
+    console.log($(this).val());
     // If trigger == 4, or "Talk", disable first pepper question
     if($(this).val() == 4){
       $('#conversation-form-header').addClass('hide');
@@ -191,6 +196,10 @@ function viewConversation(id, conversationObj){
       $('#conversation-form-header').removeClass('hide');
     }
     conversationObj.trigger = $(this).val();
+  });
+  $conversationLanguage.find("input[name='select-option']").unbind().on("change", function(){
+    console.log($(this).val());
+    conversationObj.language = $(this).val();
   });
   $conversationPriority.unbind().on("change", function(){
     conversationObj.priority = $(this).val();
@@ -460,7 +469,7 @@ function appendUserResponse($listContainer, responseObj, userResponse){
   });
 }
 
-function viewAppSettings(){
+function viewAppSettings(boxSetting){
   $("body").prepend(
     '<div class="modal-wrapper">'+
       '<div id="box-settings-modal" class="modal">'+
@@ -476,12 +485,12 @@ function viewAppSettings(){
               '<h1>ボックスの設定</h1>'+
             '</div>'+
             '<div class="row-no-wrapper">'+
-              '<input id="box-random" type="radio" name="box-setting" value="1"/>'+
+              '<input id="box-random" type="radio" name="box-setting" value="Random"/>'+
               '<label for="box-random">'+
                 '<div class="checkbox"></div>'+
                 '<span>ランダム</span>'+
               '</label>'+
-              '<input id="box-priority" type="radio" name="box-setting" value="2"/>'+
+              '<input id="box-priority" type="radio" name="box-setting" value="Priority"/>'+
               '<label for="box-priority">'+
                 '<div class="checkbox"></div>'+
                 '<span>優先</span>'+
@@ -497,8 +506,8 @@ function viewAppSettings(){
   var $boxSetting = $settingModal.find("input[name='box-setting']");
   var $closeButton = $settingModal.find("#close-modal");
 
-  // Initialize Values
-  $settingModal.find("input[name='box-setting'][value='"+1+"']").attr("checked", "checked");
+  $settingModal.find("input[name='box-setting'][value='"+boxSetting+"']").attr("checked", "checked");
+
 
   $closeButton.on("click", function(){
     $(this).closest(".modal-wrapper").remove();
@@ -506,7 +515,7 @@ function viewAppSettings(){
 
   // Change Box Settings value
   $boxSetting.on("change", function(){
-    console.log($(this).val());
+    saveSetting($(this).val());
   });
 
 }
