@@ -18,6 +18,10 @@ $(document).ready(function() {
     });
   });
 
+  $("#view-app-settings").on("click", function(){
+    viewAppSettings();
+  });
+
 });
 
 function optionBox(){
@@ -454,4 +458,55 @@ function appendUserResponse($listContainer, responseObj, userResponse){
       $removeUserResponse.closest(".user-response").remove();
     });
   });
+}
+
+function viewAppSettings(){
+  $("body").prepend(
+    '<div class="modal-wrapper">'+
+      '<div id="box-settings-modal" class="modal">'+
+        '<div class="modal-header">'+
+          '<span class="modal-title">アプリの設定</span>'+
+          '<div class="row-reverse">'+
+            '<i id="close-modal" class="material-icons modal-button-icon">&#xE5CD;</i>'+
+          '</div>'+
+        '</div>'+
+        '<div class="modal-content">'+
+          '<div class="row-no-wrapper">'+
+            '<div class="col-wrapper">'+
+              '<h1>ボックスの設定</h1>'+
+            '</div>'+
+            '<div class="row-no-wrapper">'+
+              '<input id="box-random" type="radio" name="box-setting" value="1"/>'+
+              '<label for="box-random">'+
+                '<div class="checkbox"></div>'+
+                '<span>ランダム</span>'+
+              '</label>'+
+              '<input id="box-priority" type="radio" name="box-setting" value="2"/>'+
+              '<label for="box-priority">'+
+                '<div class="checkbox"></div>'+
+                '<span>優先</span>'+
+              '</label>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'
+  );
+
+  var $settingModal = $("#box-settings-modal");
+  var $boxSetting = $settingModal.find("input[name='box-setting']");
+  var $closeButton = $settingModal.find("#close-modal");
+
+  // Initialize Values
+  $settingModal.find("input[name='box-setting'][value='"+1+"']").attr("checked", "checked");
+
+  $closeButton.on("click", function(){
+    $(this).closest(".modal-wrapper").remove();
+  });
+
+  // Change Box Settings value
+  $boxSetting.on("change", function(){
+    console.log($(this).val());
+  });
+
 }

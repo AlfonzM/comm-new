@@ -300,7 +300,28 @@ $modal-height: 250px;
   background-color: transparentize(black, .5);
 
   & #box-settings-modal{
-    @extend .center-inline-elem;
+    & > .modal-header{
+      background-color: inherit;
+      & > span{
+        color: gray;
+      }
+    }
+
+    & > .modal-content{
+      flex-direction: column;
+    }
+  }
+
+  & .modal-button-icon{
+    color: $dark-border-color;
+    cursor: pointer;
+
+    &:hover{
+      color: gray;
+    }
+    &:active{
+      color: tomato;
+    }
   }
 
   & > .modal{

@@ -27,7 +27,7 @@
   -webkit-justify-content: center;
   justify-content: center; }
 
-.center-inline-elem, .side-container > .tool, .arrow-down-icon:before, #project-name, .modal-wrapper #box-settings-modal {
+.center-inline-elem, .side-container > .tool, .arrow-down-icon:before, #project-name {
   display: -webkit-inline-flex !important;
   display: inline-flex !important;
   -webkit-align-items: center !important;
@@ -314,6 +314,19 @@ ul {
   position: fixed;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.5); }
+  .modal-wrapper #box-settings-modal > .modal-header {
+    background-color: inherit; }
+    .modal-wrapper #box-settings-modal > .modal-header > span {
+      color: gray; }
+  .modal-wrapper #box-settings-modal > .modal-content {
+    flex-direction: column; }
+  .modal-wrapper .modal-button-icon {
+    color: silver;
+    cursor: pointer; }
+    .modal-wrapper .modal-button-icon:hover {
+      color: gray; }
+    .modal-wrapper .modal-button-icon:active {
+      color: tomato; }
   .modal-wrapper > .modal {
     width: 400px;
     height: 250px;

@@ -18,31 +18,6 @@
   <link rel="stylesheet" type="text/css" href="css/form.css">
 </head>
 <body lang="en">
-  <div class="modal-wrapper">
-    <div id="box-settings-modal" class="modal">
-      <div class="modal-header">
-        <span class="modal-title">Confirm</span>
-      </div>
-      <div class="row-wrapper">
-        <div class="row-wrapper">
-          <h1>Box Settings</h1>
-        </div>
-        <div class="row-wrapper">
-          <input id="radio" type="radio" name="name" value="" checked>
-          <label for="radio">
-            <div class="checkbox"></div>
-            <span>Random</span>
-          </label>
-
-          <input id="radio2" type="radio" name="name" value="">
-          <label for="radio2">
-            <div class="checkbox"></div>
-            <span>Priority</span>
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="header divider col-wrapper">
     <div class="header-content content-wrapper">
       <div class="row-no-wrapper inherit-height">
@@ -65,8 +40,8 @@
               <div class="bubble-option">
                 <label for="list-page" class="nav-button">会話リスト</label>
               </div>
-              <div class="bubble-option">
-                <span>Settings</span>
+              <div id="view-app-settings" class="bubble-option">
+                <span>アプリの設定</span>
               </div>
               <div class="option-divider"></div>
               <div id="logout-button" class="bubble-option">
