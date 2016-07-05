@@ -10,8 +10,8 @@ function Conversation(props = []){
         this.title = props.conversation_title || "Untitled "+this.localID;
       this.trigger = props.conversation_trigger || "1";
      this.priority = props.conversation_priority || "1";
-        this.sharp = props.conversation_sharp || -1;
-        this.speed = props.conversation_speed || -1;
+        this.sharp = props.conversation_sharp || 110;
+        this.speed = props.conversation_speed || 130;
        this.client = props.conversation_client || -1;
        this.dis = props.conversation_dis || 1;
 

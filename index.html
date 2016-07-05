@@ -1,23 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Conversation</title>
-<!-- <link rel="shortcut icon" type="image/png" href="css/images/tiny-favicon.png"/> -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Conversation</title>
+  <!-- <link rel="shortcut icon" type="image/png" href="css/images/tiny-favicon.png"/> -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-<script src="js/structure.js"></script>
-<script src="js/interaction.js"></script>
-<script src="js/conversation.js"></script>
-<script src="js/data.js"></script>
+  <script src="js/structure.js"></script>
+  <script src="js/interaction.js"></script>
+  <script src="js/conversation.js"></script>
+  <script src="js/data.js"></script>
 
-<link rel="stylesheet" type="text/css" href="css/layout.css">
-<link rel="stylesheet" type="text/css" href="css/template.css">
-<link rel="stylesheet" type="text/css" href="css/form.css">
+  <link rel="stylesheet" type="text/css" href="css/layout.css">
+  <link rel="stylesheet" type="text/css" href="css/template.css">
+  <link rel="stylesheet" type="text/css" href="css/form.css">
 </head>
 <body lang="en">
+  <div class="modal-wrapper">
+    <div id="box-settings-modal" class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Confirm</span>
+      </div>
+      <div class="row-wrapper">
+        <div class="row-wrapper">
+          <h1>Box Settings</h1>
+        </div>
+        <div class="row-wrapper">
+          <input id="radio" type="radio" name="name" value="" checked>
+          <label for="radio">
+            <div class="checkbox"></div>
+            <span>Random</span>
+          </label>
+
+          <input id="radio2" type="radio" name="name" value="">
+          <label for="radio2">
+            <div class="checkbox"></div>
+            <span>Priority</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="header divider col-wrapper">
     <div class="header-content content-wrapper">
       <div class="row-no-wrapper inherit-height">
@@ -40,9 +65,9 @@
               <div class="bubble-option">
                 <label for="list-page" class="nav-button">会話リスト</label>
               </div>
-<!--               <div class="bubble-option">
-                <span>プロジェクト一覧</span>
-              </div> -->
+              <div class="bubble-option">
+                <span>Settings</span>
+              </div>
               <div class="option-divider"></div>
               <div id="logout-button" class="bubble-option">
                 <span>ログアウト</span>
@@ -152,9 +177,26 @@
                     <h1>Priority number</h1>
                   </div>
                   <div class="col-wrapper">
-                    <input id="priority" type="number" name="priority-number" min=1 max=100 value=1 required>
+                    <input id="priority" type="number" name="priority-number" value=1 required/>
                   </div>
                 </div>
+                <div class="row-wrapper">
+                  <div class="col-wrapper">
+                    <h1>Sharp</h1>
+                  </div>
+                  <div class="col-wrapper">
+                    <input id="sharp" type="number" name="sharp-number" required/>
+                  </div>
+                </div>
+                <div class="row-wrapper">
+                  <div class="col-wrapper">
+                    <h1>Speed</h1>
+                  </div>
+                  <div class="col-wrapper">
+                    <input id="speed" type="number" name="speed-number" required/>
+                  </div>
+                </div>
+
                 <!-- Settings -->
               </div>
             </div>

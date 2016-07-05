@@ -1,4 +1,4 @@
-var apiUrl = 'php/conversations';
+var apiUrl = '/communication/php/conversations';
 
 $(document).ready(function() {	
 	fetchConversations();	

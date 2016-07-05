@@ -27,7 +27,7 @@
   -webkit-justify-content: center;
   justify-content: center; }
 
-.center-inline-elem, .side-container > .tool, .arrow-down-icon:before, #project-name {
+.center-inline-elem, .side-container > .tool, .arrow-down-icon:before, #project-name, .modal-wrapper #box-settings-modal {
   display: -webkit-inline-flex !important;
   display: inline-flex !important;
   -webkit-align-items: center !important;

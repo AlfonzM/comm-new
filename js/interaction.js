@@ -146,11 +146,15 @@ function viewConversation(id, conversationObj){
   // Conversation Settings
   var $conversationNameField = $( "input[name='conversation-name']" );
   var $conversationTrigger = $( "#trigger-option-container" );
+  var $conversationSharp = $( "input[name='sharp-number']" );
   var $conversationPriority = $( "input[name='priority-number']" );
+  var $conversationSpeed = $( "input[name='speed-number']" );
 
   $conversationNameField.val(conversationObj.title).change();
   $conversationTrigger.find(".drop-select > li").eq(conversationObj.trigger - 1).click();
   $conversationPriority.val(conversationObj.priority);
+  $conversationSharp.val(conversationObj.sharp);
+  $conversationSpeed.val(conversationObj.speed);
 
   // Conversation Reponse List
   var $pepperQuestionField = $( "input[name='pepper-question']" );
@@ -186,6 +190,12 @@ function viewConversation(id, conversationObj){
   });
   $conversationPriority.unbind().on("change", function(){
     conversationObj.priority = $(this).val();
+  });
+  $conversationSharp.unbind().on("change", function(){
+    conversationObj.sharp = $(this).val();
+  });
+  $conversationSpeed.unbind().on("change", function(){
+    conversationObj.speed = $(this).val();
   });
 
   // Bind Pepper Question

@@ -127,9 +127,6 @@ body.modal-open {
   margin: 0 auto;
   position: relative; }
 
-.dark-section {
-  background-color: #fafafa; }
-
 .col-wrapper {
   width: 100%;
   display: flex;

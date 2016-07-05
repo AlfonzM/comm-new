@@ -142,9 +142,9 @@ $modal-height: 250px;
   pointer-events: none;
 
   -webkit-transition: opacity .1s ease-in, transform .1s ease-in;
-     -moz-transition: opacity .1s ease-in, transform .1s ease-in;
-       -o-transition: opacity .1s ease-in, transform .1s ease-in;
-          transition: opacity .1s ease-in, transform .1s ease-in;
+  -moz-transition: opacity .1s ease-in, transform .1s ease-in;
+  -o-transition: opacity .1s ease-in, transform .1s ease-in;
+  transition: opacity .1s ease-in, transform .1s ease-in;
 
   &.show{
     opacity: 1;
@@ -298,6 +298,10 @@ $modal-height: 250px;
   position: fixed;
   z-index: 2;
   background-color: transparentize(black, .5);
+
+  & #box-settings-modal{
+    @extend .center-inline-elem;
+  }
 
   & > .modal{
     width: $modal-width;
