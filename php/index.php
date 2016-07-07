@@ -22,6 +22,10 @@ require 'Controller/UserReplyController.php';
 require 'Controller/TriggerController.php';
 require 'Controller/SettingController.php';
 
+$app->get('/qwe', function() {
+	header('Location: http://google.com');
+});
+
 $app->run();
 
 ?>

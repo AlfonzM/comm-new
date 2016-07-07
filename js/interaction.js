@@ -351,13 +351,13 @@ function validateGroupFields(response){
   if(hasEmpty){ return false; }
 
   // Check if pepper reply is empty
-  if(response.pepperResponse.replace(/ /g,'')){
-    return true;
-  }
-  else{
-    invalidizeField($responseGroupElem.find("input[name='pepper-reply']"));
+  var $pepperReplyField = $responseGroupElem.find("input[name='pepper-reply']");
+  if($pepperReplyField.val() && $pepperReplyField.val().trim() == ""){
+    invalidizeField($pepperReplyField);
     alertModal("Pepper Reply should not be empty.");
     return false;
+  } else {
+    return true;
   }
 }
 
