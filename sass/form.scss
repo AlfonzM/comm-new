@@ -573,7 +573,6 @@ body.modal-open{
   }  
 
   &.hide{
-    pointer-events: none;
     border-color: transparent;
 
       -webkit-transition: border-color .2s linear;
@@ -582,6 +581,7 @@ body.modal-open{
               transition: border-color .2s linear;
 
     & #pepper-question-container{
+      pointer-events: none;
       opacity: 0;
     }
   }

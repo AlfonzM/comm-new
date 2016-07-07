@@ -20,10 +20,20 @@ $(document).ready(function() {
 
 function logIn(){
   $("#log-in").addClass("process");
-  $("body").addClass("disable")
+  $("body").addClass("disable");
 
-  /* Add Confirmation process function */
-  /* Call 'reset()' if Confirmation failed */
+  var login_parameters = {
+    "account_username": $("#user-email").val(),
+    "account_password_string": $("#user-pass").val()
+  };
+
+  account.Login(login_parameters, function(result){
+    if(result){
+      window.location.href = '/communication';
+    }
+
+    reset();
+  });
 }
 
 function reset(){

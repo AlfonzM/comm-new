@@ -67,6 +67,15 @@ function displayBreadcrumbs(conversation){
   // Bind Breadcrumbs
   $(".breadcrumb:not(:last-of-type)").on("click", function(){
     var pepperTalkLink = $(this).data("peppertalk-link");
+
+    // Before navigating via breadcrumbs, check if user response and pepper reply fields arent empty
+    for(index in conversation.pepperTalks[currentDialogue].groups){
+      var group = conversation.pepperTalks[currentDialogue].groups[index];
+      if(!validateGroupFields(group)){
+        return;
+      }
+    }
+
     viewPepperTalk(conversation, conversation.pepperTalks[pepperTalkLink]);
   });
 }

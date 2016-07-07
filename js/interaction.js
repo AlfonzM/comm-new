@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   $("#logout-button").on("click", function(){
     confirmModal('Are you sure you want to log-out?', function(){
-      // logout here
+      logoutSession();
     });
   });
 
@@ -22,7 +22,6 @@ $(document).ready(function() {
     getSetting();
     // viewAppSettings();
   });
-
 });
 
 function optionBox(){
@@ -188,7 +187,6 @@ function viewConversation(id, conversationObj){
     $('#conversation-title').text($(this).val());
   });
   $conversationTrigger.find("input[name='select-option']").unbind().on("change", function(){
-    console.log($(this).val());
     // If trigger == 4, or "Talk", disable first pepper question
     if($(this).val() == 4){
       $('#conversation-form-header').addClass('hide');
@@ -198,7 +196,6 @@ function viewConversation(id, conversationObj){
     conversationObj.trigger = $(this).val();
   });
   $conversationLanguage.find("input[name='select-option']").unbind().on("change", function(){
-    console.log($(this).val());
     conversationObj.language = $(this).val();
   });
   $conversationPriority.unbind().on("change", function(){
@@ -231,6 +228,28 @@ function viewConversation(id, conversationObj){
 
   // Save Conversation
   $("#save-conversation").unbind().on("click", function(){
+    // Validate Conversation fields
+    if(!validateRequiredField($conversationNameField, "Conversation Name cannot be empty.")){
+      return;
+    }
+    if(!validateRequiredField($conversationSharp, "Sharp cannot be empty.")){
+      return;
+    }
+    if(!validateRequiredField($conversationSpeed, "Speed cannot be empty.")){
+      return;
+    }
+    if(!validateRequiredField($conversationPriority, "Priority number cannot be empty.")){
+      return;
+    }
+
+    // Validate current pepper talk group fields
+    for(index in conversationObj.pepperTalks[currentDialogue].groups){
+      var group = conversationObj.pepperTalks[currentDialogue].groups[index];
+      if(!validateGroupFields(group)){
+        return;
+      }
+    }
+
     var conversationListElem = $("#conversation-"+id);
 
     // Update temp to conversation collection
@@ -277,6 +296,68 @@ function toggleHide(){
   });
 }
 
+function validateRequiredField($elem, errorMessage = ""){
+  if($elem.val().trim() == ""){
+    invalidizeField($elem);
+
+    if(errorMessage){
+      alertModal(errorMessage);
+    }
+
+    return false;
+  }
+
+  return true;
+}
+
+function invalidizeField($elem){
+  $elem.addClass('invalid');
+
+  $elem.on("keypress", function(){
+    if($(this).val().trim() != ""){
+      $(this).removeClass('invalid');
+    }
+  });
+}
+
+function validateGroupFields(response){
+  var $pepperQuestionField = $( "input[name='pepper-question']" );
+  var $responseGroupElem = $('#response-group-'+response.localID);
+  var $userResponseList = $responseGroupElem.find("#user-response-list");
+
+  // Check if first pepper question
+  var $pepperQuestionField = $( "input[name='pepper-question']" );
+  if($pepperQuestionField.val().trim() == ""){
+    invalidizeField($pepperQuestionField);
+    alertModal("Pepper Question cannot be empty.");
+    return false;
+  }
+
+  var hasEmpty = false;
+
+  // Check if there is an empty user response
+  $userResponseList.children('li').each(function(){
+    $userResponseInputField = $(this).find("input[name='user-response']");
+    if($userResponseInputField.val().trim() == ""){
+      invalidizeField($userResponseInputField);
+      alertModal("User Responses cannot be empty.");
+      hasEmpty = true;
+    }
+  });
+
+  if(hasEmpty){ return false; }
+
+  // Check if pepper reply is empty
+  if(response.pepperResponse.replace(/ /g,'')){
+    return true;
+  }
+  else{
+    invalidizeField($responseGroupElem.find("input[name='pepper-reply']"));
+    alertModal("Pepper Reply should not be empty.");
+    return false;
+  }
+}
+
 function addResponseGroup(conversationObj, response){
   var currDialogue = conversationObj.pepperTalks[currentDialogue];
   var responseID = "response-group-"+response.localID;
@@ -312,7 +393,7 @@ function addResponseGroup(conversationObj, response){
     '<h1>Pepper Reply</h1>'+
     '</div>'+
     '<div class="col-wrapper">'+
-    '<input type="text" name="pepper-reply" placeholder="What is Pepper\'s response?" value="'+response.pepperResponse+'">'+
+    '<input type="text" name="pepper-reply" placeholder="What is Pepper\'s response?" value="'+response.pepperResponse+'" required>'+
     '</div>'+
     '<div class="option-divider"></div>'+
     '<div class="row-no-wrapper bottom-section">'+
@@ -353,13 +434,11 @@ function addResponseGroup(conversationObj, response){
 
   $responseGroupElem.find("input[name='display-response']").attr("checked", (response.enabled==1 || response.enabled === "undefined") ? true : false);
 
+
   // Add Response Reply
   $responseGroupElem.find("#add-reply").on("click", function(){
-    if(response.pepperResponse.replace(/ /g,'')){
+    if(validateGroupFields(response)){
       viewDialogueReply(conversationObj, response);
-    }
-    else{
-      alertModal("Pepper Reply should not be empty.");
     }
   });
 
@@ -373,10 +452,10 @@ function addResponseGroup(conversationObj, response){
   });
 
   // Add 1 initial user response on add new response group
-  // if(response.userReplies.length <= 0){
-  //   var newUserResponse = response.addUserResponse();
-  //   appendUserResponse($userResponseList, response, newUserResponse);
-  // }
+  if(response.id < 0 && response.userReplies.length <= 0){
+    var newUserResponse = response.addUserResponse();
+    appendUserResponse($userResponseList, response, newUserResponse);
+  }
 
   // Add user response
   $responseGroupElem.find("#add-user-response").on("click", function(){
@@ -436,7 +515,7 @@ function appendUserResponse($listContainer, responseObj, userResponse){
     '<li id="'+ userResponseID +'" class="user-response">'+
     '<div class="row-no-wrapper">'+
     '<div class="col-wrapper">'+
-    '<input type="text" name="user-response" placeholder="User Response" value="'+userResponse.text+'">'+
+    '<input type="text" name="user-response" placeholder="User Response" value="'+userResponse.text+'" required>'+
     '</div>'+
     '<div class="side-container row-3">'+
     '<div class="button-icon delete tool-tip-container">'+
@@ -472,35 +551,35 @@ function appendUserResponse($listContainer, responseObj, userResponse){
 function viewAppSettings(boxSetting){
   $("body").prepend(
     '<div class="modal-wrapper">'+
-      '<div id="box-settings-modal" class="modal">'+
-        '<div class="modal-header">'+
-          '<span class="modal-title">アプリの設定</span>'+
-          '<div class="row-reverse">'+
-            '<i id="close-modal" class="material-icons modal-button-icon">&#xE5CD;</i>'+
-          '</div>'+
-        '</div>'+
-        '<div class="modal-content">'+
-          '<div class="row-no-wrapper">'+
-            '<div class="col-wrapper">'+
-              '<h1>ボックスの設定</h1>'+
-            '</div>'+
-            '<div class="row-no-wrapper">'+
-              '<input id="box-random" type="radio" name="box-setting" value="Random"/>'+
-              '<label for="box-random">'+
-                '<div class="checkbox"></div>'+
-                '<span>ランダム</span>'+
-              '</label>'+
-              '<input id="box-priority" type="radio" name="box-setting" value="Priority"/>'+
-              '<label for="box-priority">'+
-                '<div class="checkbox"></div>'+
-                '<span>優先</span>'+
-              '</label>'+
-            '</div>'+
-          '</div>'+
-        '</div>'+
-      '</div>'+
+    '<div id="box-settings-modal" class="modal">'+
+    '<div class="modal-header">'+
+    '<span class="modal-title">アプリの設定</span>'+
+    '<div class="row-reverse">'+
+    '<i id="close-modal" class="material-icons modal-button-icon">&#xE5CD;</i>'+
+    '</div>'+
+    '</div>'+
+    '<div class="modal-content">'+
+    '<div class="row-no-wrapper">'+
+    '<div class="col-wrapper">'+
+    '<h1>ボックスの設定</h1>'+
+    '</div>'+
+    '<div class="row-no-wrapper">'+
+    '<input id="box-random" type="radio" name="box-setting" value="Random"/>'+
+    '<label for="box-random">'+
+    '<div class="checkbox"></div>'+
+    '<span>ランダム</span>'+
+    '</label>'+
+    '<input id="box-priority" type="radio" name="box-setting" value="Priority"/>'+
+    '<label for="box-priority">'+
+    '<div class="checkbox"></div>'+
+    '<span>優先</span>'+
+    '</label>'+
+    '</div>'+
+    '</div>'+
+    '</div>'+
+    '</div>'+
     '</div>'
-  );
+    );
 
   var $settingModal = $("#box-settings-modal");
   var $boxSetting = $settingModal.find("input[name='box-setting']");

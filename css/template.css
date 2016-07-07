@@ -197,6 +197,11 @@ input[type="text"], input[type="number"], input[name='input-fields'] {
   -moz-transition: color .2s linear, background-color .2s linear, border .2s linear;
   -o-transition: color .2s linear, background-color .2s linear, border .2s linear;
   transition: color .2s linear, background-color .2s linear, border .2s linear; }
+  input[type="text"]:required.invalid, input[type="number"]:required.invalid, input[name='input-fields']:required.invalid {
+    color: tomato;
+    border-color: tomato; }
+    input[type="text"]:required.invalid::-webkit-input-placeholder, input[type="number"]:required.invalid::-webkit-input-placeholder, input[name='input-fields']:required.invalid::-webkit-input-placeholder {
+      color: tomato; }
   input[type="text"]:focus, input[type="number"]:focus, input[name='input-fields']:focus {
     color: black;
     background-color: white;

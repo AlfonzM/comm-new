@@ -481,13 +481,13 @@ body.modal-open {
   -o-transition: opacity .2s linear;
   transition: opacity .2s linear; }
 #conversation-form-header.hide {
-  pointer-events: none;
   border-color: transparent;
   -webkit-transition: border-color .2s linear;
   -moz-transition: border-color .2s linear;
   -o-transition: border-color .2s linear;
   transition: border-color .2s linear; }
   #conversation-form-header.hide #pepper-question-container {
+    pointer-events: none;
     opacity: 0; }
 
 @-webkit-keyframes FADE-SLIDE-IN {

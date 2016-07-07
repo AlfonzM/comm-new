@@ -1,4 +1,5 @@
 var apiUrl = 'php/conversations';
+var baseUrl = '/communication';
 
 $(document).ready(function() {	
 	fetchConversations();	
@@ -136,7 +137,6 @@ function updateConversation(conversation){
 			viewConversation(conversationObjectFromJson.localID, conversationObjectFromJson);
 			viewPepperTalk(conversationObjectFromJson, conversationObjectFromJson.pepperTalks[gotoThisDialogue]);
 
-
 			statusNotification("Saved successfully...", null, function(){
 				$("#save-conversation").removeClass("is-loading");
 			});
@@ -197,6 +197,18 @@ function getSetting(){
 		},
 		error: function(e) {
 			alertModal("Sorry, there was a problem getting the settings from the database. Please try again.");
+		}
+	});
+}
+
+function logoutSession(){
+	console.log("logging out");
+	account.Logout(function(result){
+		alert(result);
+		if(result){
+			window.location.href = baseUrl + '/signin.html';
+		} else {
+			alertModal("There was a problem logging out your account. Please try again.");
 		}
 	});
 }

@@ -124,6 +124,17 @@ input[type="radio"], input[type="checkbox"]{
 }
 
 input[type="text"], input[type="number"], input[name='input-fields']{
+  &:required.invalid{
+    color: tomato;
+    border-color: tomato;
+
+    &::-webkit-input-placeholder {
+      color: tomato; 
+    }
+  }
+
+
+
   @extend .border-box;
   max-width: $input-width;
   height: $input-height;

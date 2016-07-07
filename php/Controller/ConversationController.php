@@ -9,6 +9,16 @@ $app->get('/test', function($request){
 	pretty_json_encode($conversationRepository->GetList([], "`conversation_id`=1"));
 });
 
+$authenticateUser = function($request, $response, $next){
+	if(false){
+		return $response = $response->withRedirect('../signin.html');		
+	} else {
+		$response = $next($request, $response);
+
+		return $response;
+	}
+};
+
 /* Get all conversations */
 $app->get('/conversations', function ($request) {
 	$conversationRepository = new ConversationRepository();
@@ -54,7 +64,7 @@ $app->get('/conversations', function ($request) {
 	}
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 /* Get conversation by ID */
 $app->get('/conversations/{id}', function($request) {
