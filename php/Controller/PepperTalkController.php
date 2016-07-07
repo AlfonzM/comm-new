@@ -10,7 +10,7 @@ $app->get('/conversations/{id}/peppertalks', function($request){
 	$result = $pepperTalkRepository->GetList([], "pepperTalk_conversation=$conversation_id");
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 /* Get a pepper talk by id */
 $app->get('/peppertalks/{id}', function($request) {
@@ -25,7 +25,7 @@ $app->get('/peppertalks/{id}', function($request) {
 	$pepperTalk['groups'] = $groupRepository->GetListByPepperTalkId($pepperTalk['pepperTalk_id']);
 
 	pretty_json_encode($pepperTalk);
-});
+})->add($authenticateUser);
 
 /* Edit a pepper talk */
 $app->put('/peppertalks/{id}', function($request){
@@ -43,7 +43,7 @@ $app->put('/peppertalks/{id}', function($request){
 	$result = $pepperTalkRepository->Update($pepperTalk);
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 /* Delete a peppertalk */
 $app->delete('/peppertalks/{id}', function($request) {
@@ -53,6 +53,6 @@ $app->delete('/peppertalks/{id}', function($request) {
 	$result = $pepperTalkRepository->Delete($peppertalkId);
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 ?>

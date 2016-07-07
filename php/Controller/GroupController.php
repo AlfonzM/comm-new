@@ -19,7 +19,7 @@ $app->get('/conversations/{id}/groups', function($request){
 	$result = $groupRepository->GetListByConversationId($conversationId, $select_properties, $arguments, null);
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 /* Get groups of by pepper talk ID */
 $app->get('/peppertalks/{id}/groups', function($request){
@@ -29,6 +29,6 @@ $app->get('/peppertalks/{id}/groups', function($request){
 	$result = $groupRepository->GetListByPepperTalkId($pepperTalkId);
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 ?>

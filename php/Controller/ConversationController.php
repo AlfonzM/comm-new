@@ -3,21 +3,11 @@ require_once('DataAccess/ConversationRepository.php');
 
 // TODO: check authorization here and get client ID
 
-$app->get('/test', function($request){
-	$conversationRepository = new ConversationRepository();
-
-	pretty_json_encode($conversationRepository->GetList([], "`conversation_id`=1"));
+$app->get('/cookie', function($request){
+	session_start();
+	var_dump($_COOKIE);
+	var_dump($_SESSION);
 });
-
-$authenticateUser = function($request, $response, $next){
-	if(false){
-		return $response = $response->withRedirect('../signin.html');		
-	} else {
-		$response = $next($request, $response);
-
-		return $response;
-	}
-};
 
 /* Get all conversations */
 $app->get('/conversations', function ($request) {
@@ -36,7 +26,7 @@ $app->get('/conversations', function ($request) {
 		}
 	}
 	else {
-		$arguments = "`conversation_dis` = 1";
+		$arguments = "`conversation_client` = {$_SESSION['user_id']} AND `conversation_dis` = 1";
 
 		$complete = 1;
 		$select_properties = [];
@@ -78,7 +68,7 @@ $app->get('/conversations/{id}', function($request) {
 	$result = $conversationRepository->GetOne([], "conversation_id=$conversation_id");
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 /* Save a conversation */
 $app->post('/conversations', function($request) {
@@ -89,7 +79,7 @@ $app->post('/conversations', function($request) {
 	$result = $conversationRepository->Save($conversation);
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 /* Edit conversation */
 $app->put('/conversations/{id}', function($request){
@@ -101,7 +91,7 @@ $app->put('/conversations/{id}', function($request){
 	$result = $conversationRepository->Update($conversation);
 
 	pretty_json_encode($conversation);
-});
+})->add($authenticateUser);
 
 /* Delete conversation */
 $app->delete('/conversations/{id}', function($request) {
@@ -110,6 +100,6 @@ $app->delete('/conversations/{id}', function($request) {
 	$result = $conversationRepository->Delete($conversation_id);
 
 	pretty_json_encode($result);
-});
+})->add($authenticateUser);
 
 ?>

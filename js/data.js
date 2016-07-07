@@ -11,10 +11,19 @@ function fetchConversations(){
 		type: 'GET',
 		dataType: 'json',
 		timeout: 60000,
-		success: function(conversations) {
-			createConversationCollectionFromJson(conversations);
+		success: function(data) {
+			if(data.error){
+				if(data.error.status_code == 401){
+					window.location.href = baseUrl + '/signin.html';
+				}
+			} else {
+				createConversationCollectionFromJson(data);
+			}
 		},
-		error: function(e) {
+		error: function(jqxhr, status, error) {
+			console.log(jqxhr);
+			console.log(status);
+			console.log(error);
 			alertModal("Sorry, there was a problem getting the data from the database. Please try again.");
 		}
 	});
@@ -202,9 +211,7 @@ function getSetting(){
 }
 
 function logoutSession(){
-	console.log("logging out");
 	account.Logout(function(result){
-		alert(result);
 		if(result){
 			window.location.href = baseUrl + '/signin.html';
 		} else {

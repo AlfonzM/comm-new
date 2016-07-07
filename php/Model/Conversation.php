@@ -14,8 +14,6 @@ class Conversation{
 	public $pepperTalks;
 
 	public function __construct($props){
-		$client_id = 4;
-
 		$this->conversation_id = $props['conversation_id'];
 		$this->conversation_title = $props['conversation_title'];
 		$this->conversation_trigger = $props['conversation_trigger'];
@@ -24,7 +22,7 @@ class Conversation{
 		$this->conversation_speed = $props['conversation_speed'];
 		$this->conversation_dialogFile = $props['conversation_dialogFile'];
 		$this->conversation_language = $props['conversation_language'];
-		$this->conversation_client = $client_id;
+		$this->conversation_client = $_SESSION['user_id'];
 
 		if(isset($props['pepperTalks'])){
 			foreach($props['pepperTalks'] as $pepperTalkProps) {
@@ -78,7 +76,7 @@ class Conversation{
 		// Traverse all groups from first pepper talk and generate dialog lines
 		if(isset($pepperTalk->groups)){
 			foreach($pepperTalk->groups as $group){
-				if($group->group_dis == 1){
+				if($group->group_dis == 1 && $group->group_enabled == 1){
 					$this->conversation_dialogFile .= $this->createLine($group, $lineLevel);
 				}
 			}
@@ -108,7 +106,7 @@ class Conversation{
 
 		if(count($group->pepperTalk->groups) > 0){
 			foreach($group->pepperTalk->groups as $group) {
-				if($group->group_dis == 1){
+				if($group->group_dis == 1 && $group->group_enabled == 1){
 					$string .= $this->createLine($group, ++$lineNum);
 				}
 			}
