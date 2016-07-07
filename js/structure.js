@@ -7,7 +7,7 @@ function Conversation(props = []){
   this.pepperTalks = [];
 
            this.id = props.conversation_id || -1;
-        this.title = props.conversation_title || "";
+        this.title = props.conversation_title || "Untitled " + this.localID;
       this.trigger = props.conversation_trigger || "1";
      this.priority = props.conversation_priority || "1";
         this.sharp = props.conversation_sharp || 100;

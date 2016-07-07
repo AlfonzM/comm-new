@@ -241,6 +241,9 @@ function viewConversation(id, conversationObj){
     if(!validateRequiredField($conversationPriority, "Priority number cannot be empty.")){
       return;
     }
+    if(!validateRequiredField($pepperQuestionField, "Pepper Question cannot be empty.")){
+      return;
+    }
 
     // Validate current pepper talk group fields
     for(index in conversationObj.pepperTalks[currentDialogue].groups){
