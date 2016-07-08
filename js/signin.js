@@ -52,19 +52,19 @@ function sendEmail(){
 
 function submitForgotPassword(){
   if($("#reset-email").val() == ""){
-    alertModal("E-mail field should not be empty.");
+    alert("E-mail field should not be empty.");
     return;
   } else {
     var email = $("#reset-email").val();
 
     if(!isEmail(email)){
-      alertModal("Please enter a valid e-mail address.");
+      alert("Please enter a valid e-mail address.");
       return;
     }
 
     account.ForgotPassword({"email" : email}, function(data){
       if(data){
-        alertModal("An email has been sent to " + email + " with instructions on how to reset your password.");
+        alert("An email has been sent to " + email + " with instructions on how to reset your password.");
       }
     });
   }

@@ -10,7 +10,7 @@ function submitNewPassword(){
 	var token = $("#token").val();
 
 	if(pass == "" || confirmPass == "" || pass != confirmPass){
-		alertModal('Password and Confirm password did not match.');
+		alert('Password and Confirm password did not match.');
 		return;
 	}
 
@@ -29,11 +29,11 @@ function submitNewPassword(){
 			if(data){
 				window.location.href = '/communication';
 			} else {
-				alertModal("The password reset token has already expired. Please request for a new token.");
+				alert("The password reset token has already expired. Please request for a new token.");
 			}
 		},
 		error: function(e) {
-			alertModal("Error: " + e);
+			alert("Error: " + e);
 		}
 	});
 }

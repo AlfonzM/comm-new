@@ -70,7 +70,7 @@ function PepperTalk(props = []){
             this.id = props.pepperTalk_id || -1;
          this.group = props.pepperTalk_group || -1;
   this.conversation = props.pepperTalk_conversation || -1;
-        this.output = props.pepperTalk_output || 1;
+        this.output = props.pepperTalk_output || "";
         this.dis = props.pepperTalk_dis || 1;
 
  this.addResponse = function (group){

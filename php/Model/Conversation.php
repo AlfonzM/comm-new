@@ -77,7 +77,7 @@ class Conversation{
 		if(isset($pepperTalk->groups)){
 			foreach($pepperTalk->groups as $group){
 				if($group->group_dis == 1 && $group->group_enabled == 1){
-					$this->conversation_dialogFile .= $this->createLine($group, $lineLevel);
+					$this->conversation_dialogFile .= $this->createLine($group, $lineLevel) . " \$Communication/NextConversation = 1 \n";
 				}
 			}
 		}
@@ -102,12 +102,16 @@ class Conversation{
 
 		// add peppertalk text
 		$string .= $group->pepperTalk->pepperTalk_text;
-		$string .= "\n";
+
+		// if group has output, append it
+		if($group->pepperTalk->pepperTalk_output != ""){
+			$string .= ' $Communication/DialogOutput = ' . $group->pepperTalk->pepperTalk_output;
+		}
 
 		if(count($group->pepperTalk->groups) > 0){
 			foreach($group->pepperTalk->groups as $group) {
 				if($group->group_dis == 1 && $group->group_enabled == 1){
-					$string .= $this->createLine($group, ++$lineNum);
+					$string .= "\n" . $this->createLine($group, ++$lineNum);
 				}
 			}
 		}

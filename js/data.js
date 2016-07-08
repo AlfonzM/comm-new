@@ -165,7 +165,7 @@ function deleteConversation(conversationId){
 		},
 		error: function(e) {
 			$("#save-conversation").removeClass("is-loading");
-			alertModal("Sorry there was a problem saving the conversation. Please try again.");
+			alertModal("Sorry there was a problem deleting the conversation. Please try again.");
 		}
 	});
 
