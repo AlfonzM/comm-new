@@ -3,21 +3,21 @@
 	// require_once('GenericRepository.php');
 	// require_once('../Model/Account.php');
 
-	class ClientRepository extends GenericRepository{
+class ClientRepository extends GenericRepository{
 
-		public function __construct(){
-			parent::__construct('client_tb');
-		}
+	public function __construct(){
+		parent::__construct('client_tb');
+	}
 
-		private function GenerateSalt(){
-			$salt = md5(openssl_random_pseudo_bytes(64));
-			return $salt;
-		}
+	private function GenerateSalt(){
+		$salt = md5(openssl_random_pseudo_bytes(64));
+		return $salt;
+	}
 
-		private function GeneratePassword($password_string, $salt){
-			$password = password_hash($password_string . $salt, PASSWORD_BCRYPT);
-			return $password;
-		}
+	private function GeneratePassword($password_string, $salt){
+		$password = password_hash($password_string . $salt, PASSWORD_BCRYPT);
+		return $password;
+	}
 
 		// TO DO:
 		//	- username already exist [DONE]
@@ -25,14 +25,14 @@
 		//	- check email format
 		//	- email confirmation
 
-		public function RegisterAccount(Client $client){
+	public function RegisterAccount(Client $client){
 
-			$count = count($this->CheckUserName($client->account_username));
+		$count = count($this->CheckUserName($client->account_username));
 
-			if($count == 0){
-				$client->account_password_salt = $this->GenerateSalt();
-				$client->account_password_string = $this->GeneratePassword($client->account_password_string, $client->account_password_salt);
-				$client->account_reg = date('Y-m-d H:i:s');
+		if($count == 0){
+			$client->account_password_salt = $this->GenerateSalt();
+			$client->account_password_string = $this->GeneratePassword($client->account_password_string, $client->account_password_salt);
+			$client->account_reg = date('Y-m-d H:i:s');
 				$client->account_dis = 1; // Change value to 0 when email confirmation function is implemented.
 
 				return $this->Save($client);
@@ -41,6 +41,14 @@
 				return "Error. Username already exist.";
 			}
 
+		}
+
+		public function CheckEmailExists($email){
+
+			$select_properties = array('`client_id`');
+			$arguments = "`mail` = '$email'";
+
+			return $this->GetOne($select_properties, $arguments);
 		}
 
 		private function CheckUsername($username){
@@ -55,8 +63,8 @@
 		private function GetUserDetails($username){
 
 			$select_properties = array('`client_id`',
-										'`account_password_string`',
-										'`account_password_salt`');
+				'`account_password_string`',
+				'`account_password_salt`');
 
 			$arguments = "`account_username` = '$username'";
 
@@ -102,16 +110,35 @@
 			else{
 				return false;
 			}
-
-			
-
 		}
 
 		public function Logout(){
 			session_start();
 			session_unset();
-		    session_destroy();
-		    return true;
+			session_destroy();
+			return true;
+		}
+
+		public function ResetPassword($email, $new_password){
+			$resultClient = $this->GetOne([], "`mail` = '$email'");
+
+			$client = new Client();
+			$client->client_id = $resultClient['client_id'];
+			$client->client_name = $resultClient['client_name'];
+			$client->mail = $resultClient['mail'];
+			$client->number = $resultClient['number'];
+			$client->account_username = $resultClient['account_username'];
+			$client->account_reg = $resultClient['account_reg'];
+			$client->account_dis = $resultClient['account_dis'];
+
+			$client->account_password_salt = $this->GenerateSalt();
+			$client->account_password_string = $this->GeneratePassword($new_password, $client->account_password_salt);
+
+			if($this->Update($client)){
+				return $client;
+			}
+
+			return false;
 		}
 
 		// TO DO: function for Edit view, and Edit proper, if needed.
@@ -135,4 +162,4 @@
 
 	}
 
-?>
+	?>

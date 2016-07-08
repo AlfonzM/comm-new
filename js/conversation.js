@@ -149,34 +149,6 @@ function confirmModal(message, callback){
   });
 }
 
-function alertModal(message){
-  $("body").prepend(
-    '<div class="modal-wrapper">'+
-      '<div class="modal confirm">'+
-        '<div class="modal-header">'+
-          '<span class="modal-title">Error</span>'+
-        '</div>'+
-        '<div class="modal-content">'+
-          '<i class="material-icons">&#xE001;</i>'+
-          '<span class="modal-message">'+ message +'</span>'+
-        '</div>'+
-        '<div class="modal-buttons button-container side-container">'+
-          '<div class="button-wrapper">'+
-            '<div id="confirm-action" class="button">はい</div>'+
-          '</div>'+
-        '</div>'+
-      '</div>'+
-    '</div>'
-  ).addClass("modal-open");
-
-  $modalElem = $(".modal-wrapper");
-
-  $modalElem.find("#confirm-action").on("click", function(){
-    $modalElem.remove();
-    $("body").removeClass("modal-open");
-  });
-}
-
 function statusNotification(message, error = false, callback){
   $(".status-notify").remove();
   var iconDiv = '<i class="material-icons">&#xE5CA;</i>';

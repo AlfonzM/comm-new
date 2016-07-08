@@ -62,10 +62,26 @@ var account = function(){
 
   }
 
+  function ForgotPassword(parameters, callback_function){
+    $.ajax({
+      url: 'auth/client/forgot',
+      type: 'POST',
+      dataType: 'json',
+      data: parameters,
+      success: function(data){
+        callback_function(data);
+      },
+      error: function() {
+        callback_function(false);
+      }
+    });
+  }
+
   return{
     Register: Register,
     Login: Login,
-    Logout: Logout
+    Logout: Logout,
+    ForgotPassword: ForgotPassword
   };
 
 }();

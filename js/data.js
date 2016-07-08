@@ -14,16 +14,13 @@ function fetchConversations(){
 		success: function(data) {
 			if(data.error){
 				if(data.error.status_code == 401){
-					window.location.href = baseUrl + '/signin.html';
+					window.location.href = baseUrl + '/signin.php';
 				}
 			} else {
 				createConversationCollectionFromJson(data);
 			}
 		},
 		error: function(jqxhr, status, error) {
-			console.log(jqxhr);
-			console.log(status);
-			console.log(error);
 			alertModal("Sorry, there was a problem getting the data from the database. Please try again.");
 		}
 	});
@@ -134,7 +131,6 @@ function updateConversation(conversation){
 		processData: false,
 		timeout: 60000,
 		success: function(data) {
-			console.log(data);
 			data.localID = conversation.localID;
 			var conversationObjectFromJson = createConversationObjectFromJson(data);
 
@@ -188,7 +184,6 @@ function saveSetting(setting){
 		success: function(data) {
 		},
 		error: function(e) {
-			console.log(e);
 			alertModal("Sorry, there was a problem saving the settings. Please try again.");
 		}
 	});
@@ -213,7 +208,7 @@ function getSetting(){
 function logoutSession(){
 	account.Logout(function(result){
 		if(result){
-			window.location.href = baseUrl + '/signin.html';
+			window.location.href = baseUrl + '/signin.php';
 		} else {
 			alertModal("There was a problem logging out your account. Please try again.");
 		}

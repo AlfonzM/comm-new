@@ -241,7 +241,7 @@ function viewConversation(id, conversationObj){
     if(!validateRequiredField($conversationPriority, "Priority number cannot be empty.")){
       return;
     }
-    if(!validateRequiredField($pepperQuestionField, "Pepper Question cannot be empty.")){
+    if(conversationObj.trigger != 4 && !validateRequiredField($pepperQuestionField, "Pepper Question cannot be empty.")){
       return;
     }
 
@@ -328,9 +328,10 @@ function validateGroupFields(response){
   var $responseGroupElem = $('#response-group-'+response.localID);
   var $userResponseList = $responseGroupElem.find("#user-response-list");
 
-  // Check if first pepper question
+  // Check if first pepper question is not empty
   var $pepperQuestionField = $( "input[name='pepper-question']" );
-  if($pepperQuestionField.val().trim() == ""){
+  // Check first if conversation trigger is not "Talk"
+  if(currentConversation.trigger != 4 && $pepperQuestionField.val().trim() == ""){
     invalidizeField($pepperQuestionField);
     alertModal("Pepper Question cannot be empty.");
     return false;
