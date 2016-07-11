@@ -64,8 +64,14 @@ function submitForgotPassword(){
 
     account.ForgotPassword({"email" : email}, function(data){
       if(data){
+        console.log(data);
         alert("An email has been sent to " + email + " with instructions on how to reset your password.");
       }
     });
   }
+}
+
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
 }

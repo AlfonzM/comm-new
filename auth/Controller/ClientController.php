@@ -1,7 +1,7 @@
 <?php
 require_once('DataAccess/PasswordResetRepository.php');
 
-	// Returns 'true' or 'false'
+// Returns 'true' or 'false'
 $app->post('/client/register', function($request){
 
 	$unitOfWork = new UnitOfWork();
@@ -22,7 +22,7 @@ $app->post('/client/register', function($request){
 
 });
 
-	// Returns 'true' or 'false'
+// Returns 'true' or 'false'
 $app->post('/client/login', function($request) {
 	$unitOfWork = new UnitOfWork();
 
@@ -33,7 +33,7 @@ $app->post('/client/login', function($request) {
 	echo json_encode($result);
 });
 
-	// Returns 'true'
+// Returns 'true'
 $app->get('/client/logout', function(){
 
 	$unitOfWork = new UnitOfWork();
@@ -44,27 +44,43 @@ $app->get('/client/logout', function(){
 
 });
 
-	// Returns 'true' or 'false'
+/*
+$app->get('/client/test', function($request){
+	$host = $_SERVER['HTTP_HOST'];
+	$dir = dirname(dirname(dirname($_SERVER['REQUEST_URI'])));
+	$tokenUrl = "http://{$host}{$dir}/reset.php?token=";
+	echo $tokenUrl;
+});
+*/
+
+// Returns 'true' or 'false'
 $app->post('/client/forgot', function($request){
 	$email = $request->getParsedBody()['email'];
 
-		// check if email exists
+	// check if email exists
 	$unitOfWork = new UnitOfWork();
 	if(!$unitOfWork->clientRepository->CheckEmailExists($email)){
 		echo json_encode(true);
 		return;
 	}
 
-		// generate token and save to DB
+	// generate token and save to DB
 	$passwordResetRepository = new PasswordResetRepository();
 	$passwordResetToken = $passwordResetRepository->GeneratePasswordResetToken($email);
 
-		// send email with link+token to email
+	// send email with link+token to email
+	$host = $_SERVER['HTTP_HOST'];
+	$dir = dirname(dirname(dirname($_SERVER['REQUEST_URI'])));
+	$tokenUrl = "http://{$host}{$dir}/reset.php?token=$passwordResetToken";
 
-	echo json_encode($passwordResetToken);
+	$subject = "Password Reset";
+	$message = "Hi, click the link to reset your password: " . $tokenUrl;
+	// send_email($email, $subject, $message);
+
+	echo json_encode($message);
 });
 
-	// Returns true or false
+// Returns true or false
 $app->post('/client/reset', function($request){
 	$token = $request->getParsedBody()['token'];
 	$pass = $request->getParsedBody()['password'];
@@ -75,7 +91,7 @@ $app->post('/client/reset', function($request){
 		return;
 	}
 
-		// Validate if token is correct
+	// Validate if token is correct
 	$passwordResetRepository = new PasswordResetRepository();
 	$result = $passwordResetRepository->ValidateToken($token);
 
