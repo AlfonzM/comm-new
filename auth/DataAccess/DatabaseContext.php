@@ -5,8 +5,8 @@
 		public function Connect(){
 			try{
 				
-				$host = 'localhost'; $username = 'root'; $password = 'root';
-				// $host = '139.162.25.179'; $username = 'aj'; $password = 'pav5gs';
+				// $host = 'localhost'; $username = 'root'; $password = 'root';
+				$host = '139.162.25.179'; $username = 'alfonz'; $password = '22cput';
 				$database = 'communication_db';
 
 				$this->db = new PDO("mysql:host=$host;dbname=$database", 
