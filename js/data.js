@@ -208,7 +208,7 @@ function getSetting(){
 function logoutSession(){
 	account.Logout(function(result){
 		if(result){
-			window.location.replace('/signin.php');
+			window.location.replace('signin.php');
 		} else {
 			alertModal("There was a problem logging out your account. Please try again.");
 		}
