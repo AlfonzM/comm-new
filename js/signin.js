@@ -33,7 +33,7 @@ function logIn(){
 
   account.Login(login_parameters, function(result){
     if(result){
-      window.location.replace('communication');
+      window.location.replace('.');
     }
 
     reset();
