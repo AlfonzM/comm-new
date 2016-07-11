@@ -27,8 +27,7 @@ $authenticateUser = function($request, $response, $next){
 
 	if(!$isAuthenticated){
 		// Return 401 response
-		echo json_encode(["error" => ["message" => "Not authorized.", "status_code" => 401]]);
-		return $response;
+		return $response->withJson(["error" => ["message" => "Not authorized.", "status_code" => 401]], 401);;
 	} else {
 		// Proceed
 		$response = $next($request, $response);

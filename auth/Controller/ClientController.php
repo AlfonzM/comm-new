@@ -44,15 +44,6 @@ $app->get('/client/logout', function(){
 
 });
 
-/*
-$app->get('/client/test', function($request){
-	$host = $_SERVER['HTTP_HOST'];
-	$dir = dirname(dirname(dirname($_SERVER['REQUEST_URI'])));
-	$tokenUrl = "http://{$host}{$dir}/reset.php?token=";
-	echo $tokenUrl;
-});
-*/
-
 // Returns 'true' or 'false'
 $app->post('/client/forgot', function($request){
 	$email = $request->getParsedBody()['email'];
