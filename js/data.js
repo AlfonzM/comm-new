@@ -14,7 +14,7 @@ function fetchConversations(){
 		success: function(data) {
 			if(data.error){
 				if(data.error.status_code == 401){
-					window.location.href = baseUrl + '/signin.php';
+					window.location.replace('signin.php');
 				}
 			} else {
 				createConversationCollectionFromJson(data);
@@ -208,7 +208,7 @@ function getSetting(){
 function logoutSession(){
 	account.Logout(function(result){
 		if(result){
-			window.location.href = baseUrl + '/signin.php';
+			window.location.replace('/signin.php');
 		} else {
 			alertModal("There was a problem logging out your account. Please try again.");
 		}
