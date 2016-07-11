@@ -27,7 +27,7 @@ class PasswordResetRepository extends GenericRepository{
 	// Returns generated token
 	public function GeneratePasswordResetToken($email){
 		// Generate random token
-		$token = bin2hex(random_bytes(78));
+		$token = bin2hex(openssl_random_pseudo_bytes(78));
 
 		// Check if there is an existing valid token for this email
 		$result = $this->GetValidToken($email);
