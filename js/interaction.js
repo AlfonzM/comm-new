@@ -247,8 +247,9 @@ function viewConversation(id, conversationObj){
 
     // Validate current pepper talk group fields
     for(index in conversationObj.pepperTalks[currentDialogue].groups){
+      console.log(index);
       var group = conversationObj.pepperTalks[currentDialogue].groups[index];
-      if(!validateGroupFields(group)){
+      if(group.dis == 1 && !validateGroupFields(group)){
         return;
       }
     }
@@ -340,9 +341,14 @@ function validateGroupFields(response){
   var hasEmpty = false;
 
   // Check if there is an empty user response
+  if($userResponseList.children('li').length < 1){
+    alertModal("Pepper Question should have at least one user response.");
+    hasEmpty = true;
+  }
+
   $userResponseList.children('li').each(function(){
     $userResponseInputField = $(this).find("input[name='user-response']");
-    if($userResponseInputField.val().trim() == ""){
+    if(!$userResponseInputField.val().trim()){
       invalidizeField($userResponseInputField);
       alertModal("User Responses cannot be empty.");
       hasEmpty = true;
@@ -353,7 +359,7 @@ function validateGroupFields(response){
 
   // Check if pepper reply is empty
   var $pepperReplyField = $responseGroupElem.find("input[name='pepper-reply']");
-  if($pepperReplyField.val() && $pepperReplyField.val().trim() == ""){
+  if(!$pepperReplyField.val().trim()){
     invalidizeField($pepperReplyField);
     alertModal("Pepper Reply should not be empty.");
     return false;

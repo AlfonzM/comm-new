@@ -27,7 +27,7 @@ function submitNewPassword(){
 		data: parameters,
 		success: function(data){
 			if(data){
-				window.location.href = '/communication';
+				window.location.replace('.');
 			} else {
 				alert("The password reset token has already expired. Please request for a new token.");
 			}
