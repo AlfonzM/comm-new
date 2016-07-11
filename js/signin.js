@@ -34,6 +34,8 @@ function logIn(){
   account.Login(login_parameters, function(result){
     if(result){
       window.location.replace('.');
+    } else {
+      alert('Invalid login. Please try again.')
     }
 
     reset();
