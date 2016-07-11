@@ -38,6 +38,10 @@ $authenticateUser = function($request, $response, $next){
 
 $app = new Slim\App($settings);
 
+$app->get('/authenticate', function($request){
+	pretty_json_encode(true);
+})->add($authenticateUser);
+
 require 'Controller/PepperTalkController.php';
 require 'Controller/ConversationController.php';
 require 'Controller/GroupController.php';

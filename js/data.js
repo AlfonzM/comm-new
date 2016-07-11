@@ -2,26 +2,29 @@ var apiUrl = 'php/conversations';
 var baseUrl = '/communication';
 
 $(document).ready(function() {	
-	fetchConversations();	
+	fetchConversations();
 });
 
 function fetchConversations(){
+	console.log("Fetching conversations");
+
 	$.ajax({
 		url: apiUrl,
 		type: 'GET',
 		dataType: 'json',
 		timeout: 60000,
 		success: function(data) {
-			if(data.error){
-				if(data.error.status_code == 401){
-					window.location.replace('signin.php');
-				}
-			} else {
-				createConversationCollectionFromJson(data);
-			}
+			createConversationCollectionFromJson(data);
 		},
-		error: function(jqxhr, status, error) {
-			alertModal("Sorry, there was a problem getting the data from the database. Please try again.");
+		error: function(xhr, status, error) {
+			console.log(xhr);
+			console.log(status);
+			console.log(error);
+			if(xhr.status == 401){
+				window.location.replace('signin.php');
+			} else {
+				alertModal("Sorry, there was a problem getting the data from the database. Please try again.");
+			}
 		}
 	});
 }
@@ -112,9 +115,13 @@ function saveConversation(conversation){
 				$("#save-conversation").removeClass("is-loading");
 			});
 		},
-		error: function(e) {
-			$("#save-conversation").removeClass("is-loading");
-			alertModal("Sorry, there was a problem saving the conversation. Please try again.");
+		error: function(xhr, status, error) {
+			if(xhr.status == 401){
+				window.location.replace('signin.php');
+			} else {
+				$("#save-conversation").removeClass("is-loading");
+				alertModal("Sorry, there was a problem saving the conversation. Please try again.");
+			}
 		}
 	});
 }
@@ -146,9 +153,13 @@ function updateConversation(conversation){
 				$("#save-conversation").removeClass("is-loading");
 			});
 		},
-		error: function(e) {
-			$("#save-conversation").removeClass("is-loading");
-			alertModal("Sorry, there was a problem saving the conversation. Please try again.");
+		error: function(xhr, status, error) {
+			if(xhr.status == 401){
+				window.location.replace('signin.php');
+			} else {
+				$("#save-conversation").removeClass("is-loading");
+				alertModal("Sorry, there was a problem saving the conversation. Please try again.");
+			}
 		}
 	});
 }
@@ -163,9 +174,13 @@ function deleteConversation(conversationId){
 		timeout: 60000,
 		success: function(data) {
 		},
-		error: function(e) {
-			$("#save-conversation").removeClass("is-loading");
-			alertModal("Sorry there was a problem deleting the conversation. Please try again.");
+		error: function(xhr, status, error) {
+			if(xhr.status == 401){
+				window.location.replace('signin.php');
+			} else {
+				$("#save-conversation").removeClass("is-loading");
+				alertModal("Sorry there was a problem deleting the conversation. Please try again.");
+			}
 		}
 	});
 
@@ -183,8 +198,12 @@ function saveSetting(setting){
 		timeout: 60000,
 		success: function(data) {
 		},
-		error: function(e) {
-			alertModal("Sorry, there was a problem saving the settings. Please try again.");
+		error: function(xhr, status, error) {
+			if(xhr.status == 401){
+				window.location.replace('signin.php');
+			} else {
+				alertModal("Sorry, there was a problem saving the settings. Please try again.");
+			}
 		}
 	});
 }
@@ -199,13 +218,19 @@ function getSetting(){
 			var boxSetting = data[0].setting_choose;
 			viewAppSettings(boxSetting);
 		},
-		error: function(e) {
-			alertModal("Sorry, there was a problem getting the settings from the database. Please try again.");
+		error: function(xhr, status, error) {
+			if(xhr.status == 401){
+				window.location.replace('signin.php');
+			} else {
+				alertModal("Sorry, there was a problem getting the settings from the database. Please try again.");
+			}
 		}
 	});
 }
 
 function logoutSession(){
+	console.log("Logging out");
+
 	account.Logout(function(result){
 		if(result){
 			window.location.replace('signin.php');
