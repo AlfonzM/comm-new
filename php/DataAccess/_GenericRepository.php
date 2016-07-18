@@ -45,9 +45,6 @@
 
 				$query .= ";";
 
-				// echo $query;
-				// echo "\n";
-
 				if($_query = $this->communication_db->prepare($query)){
 					$_query->execute();
 
@@ -57,7 +54,6 @@
 						array_push($pepperTalk_array, $result);
 					}
 
-					// var_dump($pepperTalk_array);
 					return $pepperTalk_array;
 				}
 				else{

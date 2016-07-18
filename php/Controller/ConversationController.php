@@ -3,12 +3,6 @@ require_once('DataAccess/ConversationRepository.php');
 
 // TODO: check authorization here and get client ID
 
-$app->get('/cookie', function($request){
-	session_start();
-	var_dump($_COOKIE);
-	var_dump($_SESSION);
-});
-
 /* Get all conversations */
 $app->get('/conversations', function ($request) {
 	$conversationRepository = new ConversationRepository();

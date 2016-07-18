@@ -51,7 +51,11 @@ $app->post('/client/forgot', function($request){
 
 	// check if email exists
 	$unitOfWork = new UnitOfWork();
-	if(!$unitOfWork->clientRepository->CheckEmailExists($email)){
+	$user = $unitOfWork->clientRepository->CheckEmailExists($email);
+
+	if(!$user){
+		// Email is not registered.
+		// Still return true to prevent giving malicious attackers information about registered email addresses.
 		echo json_encode(true);
 		return;
 	}
@@ -66,7 +70,10 @@ $app->post('/client/forgot', function($request){
 	$tokenUrl = "http://{$host}{$dir}/reset.php?token=$passwordResetToken";
 
 	$subject = "Password Reset";
-	$message = "Hi, click the link to reset your password: " . $tokenUrl;
+	$message = "Hi {$user['client_name']}, ";
+	$message .= "<p>To reset your password, click the following link: </p>";
+	$message .= "<p>$tokenUrl</p>";
+	$message .= "Thanks,<br/>Communication App Team";
 
 	// Send e-mail with token url. Print true or false
 	$result = send_email($email, $subject, $message);

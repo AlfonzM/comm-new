@@ -45,7 +45,7 @@ class ClientRepository extends GenericRepository{
 
 		public function CheckEmailExists($email){
 
-			$select_properties = array('`client_id`');
+			$select_properties = array('`client_id`', '`client_name`');
 			$arguments = "`mail` = '$email'";
 
 			return $this->GetOne($select_properties, $arguments);

@@ -18,7 +18,7 @@ function send_email($email, $subject, $message){
 	$mail->setFrom('alfonz.mailer@gmail.com', 'Alfonz Mailer');
 	$mail->addAddress($email, 'Alfonz Montelibano');     // Add a recipient
 
-	$mail->isHTML(true);                                  // Set email format to HTML
+	// $mail->isHTML(true);                                  // Set email format to HTML
 
 	$mail->Subject = $subject;
 	$mail->Body    = $message;
