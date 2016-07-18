@@ -1,5 +1,6 @@
 <?php
 require_once('DataAccess/PasswordResetRepository.php');
+require_once('MailController.php');
 
 // Returns 'true' or 'false'
 $app->post('/client/register', function($request){
@@ -66,9 +67,10 @@ $app->post('/client/forgot', function($request){
 
 	$subject = "Password Reset";
 	$message = "Hi, click the link to reset your password: " . $tokenUrl;
-	// send_email($email, $subject, $message);
 
-	echo json_encode($message);
+	// Send e-mail with token url. Print true or false
+	$result = send_email($email, $subject, $message);
+	echo json_encode($result);
 });
 
 // Returns true or false

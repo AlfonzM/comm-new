@@ -1,7 +1,13 @@
 $(document).ready(function() {
+  // Press login button on login
   $("#log-in").on("click", function(){
     logIn();
     setTimeout(function(){ reset(); }, 3000);
+  });
+
+  // Press submit button on forgot pass
+  $("#send-email").on("click", function(){
+    submitForgotPassword();
   });
 
   $("#forgot-password").on("click", function(){
@@ -10,16 +16,12 @@ $(document).ready(function() {
   });
 
   $("#go-login").on("click", function(){
-    sendEmail();
 
     $("#reset-email").val('');
     $(".card-wrapper").removeClass("card-2");
     $(".card-wrapper").addClass("card-1");
   });
 
-  $("#send-email").on("click", function(){
-    submitForgotPassword();
-  });
 });
 
 function logIn(){
@@ -44,12 +46,9 @@ function logIn(){
 
 function reset(){
   $("#log-in").removeClass("process");
+  $("#send-email").removeClass("process");
   $("body").removeClass("disable");
   $("#user-pass").val('');
-}
-
-function sendEmail(){
-  /* Insert Send Email function */
 }
 
 function submitForgotPassword(){
@@ -63,10 +62,15 @@ function submitForgotPassword(){
       alert("Please enter a valid e-mail address.");
       return;
     }
+    
+    // Set button to loading
+    $("#send-email").addClass("process");
+    $("body").addClass("disable");
 
     account.ForgotPassword({"email" : email}, function(data){
+      reset();
+
       if(data){
-        console.log(data);
         alert("An email has been sent to " + email + " with instructions on how to reset your password.");
       }
     });

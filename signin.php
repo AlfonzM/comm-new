@@ -35,6 +35,7 @@
       <div id="send-email" class="confirm-button btn">
         <div class="content-wrapper">
           <div class="content">送信</div>
+          <div class="content loading"></div>
         </div>
       </div>
       <div class="option-divider"></div>
